@@ -23,9 +23,9 @@ EVENT_HUBS_NAMESPACE = "<your-namespace>"  # e.g. "my-eh-namespace"
 EVENT_HUBS_TOPIC = "logs-topic"
 EVENT_HUBS_CONNECTION_STRING = "<your-connection-string>"  # Endpoint=sb://...
 
-# Lakebase Unity Catalog configuration
-CATALOG = "real_time_db"  # UC catalog (maps to Lakebase project: real-time-db)
-SCHEMA = "public"  # UC schema (maps to Lakebase branch/database: production)
+# Unity Catalog configuration (Lakebase)
+CATALOG = "real_time_db"  # UC catalog (maps to Lakebase project)
+SCHEMA = "public"  # UC schema (maps to Lakebase schema)
 TABLE_LOGS = "enriched_logs"
 TABLE_METRICS = "parsed_metrics"
 
@@ -69,7 +69,7 @@ def generate_embedding_udf(iterator: Iterator[pd.Series]) -> Iterator[pd.Series]
 # Stream 1: Logs → Lakebase (with embeddings)
 # ============================================================================
 
-print("🚀 Starting real-time logs stream...")
+print("🚀 Starting real-time logs stream... WITH ALL MODIFICATIONS!!!!!!!!!!!!")
 
 if USE_JSON_FILES:
     # JSON files via Auto Loader (for testing)
@@ -91,7 +91,7 @@ if USE_JSON_FILES:
         .schema(envelope_schema)
         .load(JSON_SOURCE_PATH)
         .withColumn("payload", from_json(col("value"), payload_schema))
-        .where("payload.category IS NOT NULL")
+        .where("payload.type = 'log'")
         .select(
             col("timestamp").alias("eventhub_timestamp"),
             col("topic"),
@@ -116,7 +116,7 @@ else:
         .option("maxOffsetsPerTrigger", "100")
         .load()
         .withColumn("payload", from_json(col("value").cast("string"), payload_schema))
-        .where("payload.category IS NOT NULL")
+        .where("payload.type = 'log'")
         .select(
             col("timestamp").alias("eventhub_timestamp"),
             col("topic"),
@@ -130,6 +130,7 @@ else:
 # Write to Unity Catalog Delta table
 logs_query = (
     logs_stream.writeStream
+    .format("postgresql")
     .outputMode("append")
     .option("checkpointLocation", CHECKPOINT_LOGS)
     .trigger(availableNow=True)
@@ -155,7 +156,7 @@ if USE_JSON_FILES:
         .schema(envelope_schema)
         .load(JSON_SOURCE_PATH)
         .withColumn("payload", from_json(col("value"), payload_schema))
-        .where("payload.type = 'metric'")
+        .where("payload.type = 'metrics'")
         .select(
             col("timestamp").alias("eventhub_timestamp"),
             col("topic"),
@@ -196,6 +197,7 @@ else:
 # Write to Unity Catalog Delta table
 metrics_query = (
     metrics_stream.writeStream
+    .format("postgresql")
     .outputMode("append")
     .option("checkpointLocation", CHECKPOINT_METRICS)
     .trigger(availableNow=True)
