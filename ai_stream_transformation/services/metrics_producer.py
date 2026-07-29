@@ -4,40 +4,47 @@ import json
 import logging
 import threading
 from kafka import KafkaProducer
-from kafka.errors import NoBrokersAvailable
+from kafka.errors import NoBrokersAvailable, KafkaError
 import subprocess
 
-# Configuration
-KAFKA_BROKER = 'localhost:9092'
+# ============================================================================
+# EVENT HUBS CONFIGURATION (Kafka-compatible endpoint)
+# ============================================================================
+EVENT_HUBS_NAMESPACE = "<your-namespace>"  # e.g. "my-eh-namespace"
+EVENT_HUBS_BROKER = f"{EVENT_HUBS_NAMESPACE}.servicebus.windows.net:9093"
+EVENT_HUBS_CONNECTION_STRING = "<your-connection-string>"  # Endpoint=sb://...
+
 KAFKA_METRICS_TOPIC = 'system-metrics'
 KAFKA_LOGS_TOPIC = 'system-logs'
 
-# Add a flag to fallback to terminal output
-USE_TERMINAL_FALLBACK = False
-
 def send_payload(topic, payload):
-    global USE_TERMINAL_FALLBACK
-    if USE_TERMINAL_FALLBACK:
-        print(f"Fallback [Terminal] ({topic}): {json.dumps(payload)}")
-        return
-
+    """Send payload to Event Hubs via Kafka protocol"""
     try:
-        producer.send(topic, payload)
-    except Exception as e:
-        print(f"Failed to send to Kafka: {e}. Switching to terminal fallback.")
-        USE_TERMINAL_FALLBACK = True
-        print(f"Fallback [Terminal] ({topic}): {json.dumps(payload)}")
+        future = producer.send(topic, payload)
+        # Block for 'synchronous' sends (optional)
+        record_metadata = future.get(timeout=10)
+        print(f"✅ Sent to {topic}: offset={record_metadata.offset}")
+    except KafkaError as e:
+        print(f"❌ Failed to send to Event Hubs: {e}")
+        raise
 
-# Initialize Kafka Producer
-try:
-    producer = KafkaProducer(
-        bootstrap_servers=[KAFKA_BROKER],
-        value_serializer=lambda v: json.dumps(v).encode('utf-8')
-    )
-except Exception as e:
-    print(f"Could not connect to Kafka at {KAFKA_BROKER}: {e}. Falling back to terminal output.")
-    USE_TERMINAL_FALLBACK = True
-    producer = None
+# Initialize Kafka Producer with Event Hubs SASL configuration
+print(f"Connecting to Event Hubs at {EVENT_HUBS_BROKER}...")
+
+producer = KafkaProducer(
+    bootstrap_servers=[EVENT_HUBS_BROKER],
+    security_protocol='SASL_SSL',
+    sasl_mechanism='PLAIN',
+    sasl_plain_username='$ConnectionString',
+    sasl_plain_password=EVENT_HUBS_CONNECTION_STRING,
+    value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+    # Additional settings for reliability
+    retries=3,
+    max_in_flight_requests_per_connection=1,
+    acks='all'
+)
+
+print(f"✅ Connected to Event Hubs: {EVENT_HUBS_NAMESPACE}")
 
 # Mac log sources (using 'log show' command)
 # Note: This requires appropriate permissions. Some may require sudo.
@@ -105,7 +112,10 @@ def stream_logs(category, predicate):
     process.wait()
 
 def main():
-    print(f"Starting monitoring. Pushing to {KAFKA_BROKER}. Metrics to {KAFKA_METRICS_TOPIC}, Logs to {KAFKA_LOGS_TOPIC}")
+    print(f"Starting monitoring. Pushing to Event Hubs: {EVENT_HUBS_NAMESPACE}")
+    print(f"  Metrics topic: {KAFKA_METRICS_TOPIC}")
+    print(f"  Logs topic: {KAFKA_LOGS_TOPIC}")
+    print("=" * 80)
 
     # Start log streamers in background threads
     for category, predicate in LOG_SOURCES.items():
@@ -117,12 +127,13 @@ def main():
         while True:
             metrics = get_metrics()
             send_payload(KAFKA_METRICS_TOPIC, metrics)
-            time.sleep(1) # Changed to 1s as requested
+            time.sleep(1)
     except KeyboardInterrupt:
-        print("Stopping...")
+        print("\n\nStopping...")
     finally:
-        if producer:
-            producer.close()
+        print("Closing producer...")
+        producer.close()
+        print("✅ Producer closed")
 
 if __name__ == "__main__":
     main()
