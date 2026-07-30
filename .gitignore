@@ -1,0 +1,28 @@
+# Exploration and ad-hoc analysis files
+ai_stream_transformation/services/exploration_streaming_metrics.py
+
+# Databricks bundle artifacts
+.databricks/bundle/
+.databricks/*.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Databricks
+.databricks/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

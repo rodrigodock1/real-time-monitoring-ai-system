@@ -1,6 +1,0 @@
-# Exploration and ad-hoc analysis files
-services/exploration_streaming_metrics.py
-
-# Databricks bundle artifacts
-.databricks/bundle/
-.databricks/*.lock

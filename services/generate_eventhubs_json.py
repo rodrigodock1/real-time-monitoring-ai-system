@@ -47,15 +47,15 @@ def generate_log():
     category_rand = random.random()
     if category_rand < 0.4:
         category = "kernel"
-        message = f'"eventMessage" : "SK[{random.randint(0, 10)}]: flow_entry_alloc ..."'
+        message = f'\"eventMessage\" : \"SK[{random.randint(0, 10)}]: flow_entry_alloc ...\"'
     elif category_rand < 0.8:
         category = "system"
-        message = f'"eventMessage" : "System process PID {random.randint(0, 10000)} started with code 0"'
+        message = f'\"eventMessage\" : \"System process PID {random.randint(0, 10000)} started with code 0\"'
     else:
         category = "wifi"
         signal = random.randint(40, 90)
         ssid = random.randint(0, 100)
-        message = f'"eventMessage" : "WiFi connection to SSID {ssid} established with signal strength -{signal}dBm"'
+        message = f'\"eventMessage\" : \"WiFi connection to SSID {ssid} established with signal strength -{signal}dBm\"'
     
     return {
         "timestamp": time.time(),

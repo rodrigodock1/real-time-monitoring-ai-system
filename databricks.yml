@@ -23,8 +23,6 @@ targets:
   dev:
     mode: development
     default: true
-    workspace:
-      host: ${workspace.host}
     variables:
       catalog: workspace
       volume_catalog: dev
@@ -32,7 +30,6 @@ targets:
   prod:
     mode: production
     workspace:
-      host: ${workspace.host}
       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/prod
     variables:
       catalog: workspace
@@ -51,7 +48,7 @@ resources:
       channel: CURRENT
       libraries:
         - notebook:
-            path: ./streaming_jobs/metrics_streaming
+            path: ./streaming_jobs/metrics_streaming.py
 
   jobs:
     real_time_ai_processing:
@@ -63,7 +60,7 @@ resources:
       tasks:
         - task_key: real_time_processing
           notebook_task:
-            notebook_path: ./streaming_jobs/metrics_streaming
+            notebook_path: ./streaming_jobs/metrics_streaming.py
             base_parameters:
               event_hubs_namespace: ${var.event_hubs_namespace}
               event_hubs_topic: ${var.event_hubs_topic}

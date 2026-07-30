@@ -39,8 +39,6 @@ This project uses Databricks Declarative Automation Bundles (DAB).
 1. Databricks CLI installed and authenticated
 2. Secrets configured in scope `real-time`:
    * `event_hubs_connection_string`: Azure Event Hubs connection string
-   * `redis_broker_url`: Redis broker URL (for Celery)
-   * `redis_backend_url`: Redis backend URL (for Celery)
 
 ### Deploy to Development
 
@@ -125,13 +123,13 @@ USE_JSON_FILES = False  # Set to True for JSON testing, False for Event Hubs
 
 ```
 .
-├── databricks.yml                # Bundle configuration
+├── databricks.yml                         # Bundle configuration
 ├── .databricks/
-│   └── project.json             # Project metadata
+│   └── project.json                       # Project metadata
 ├── streaming_jobs/
-│   └── metrics_streaming        # Main streaming notebook
-├── services/
-│   ├── metrics_producer.py      # Event producer
-│   └── generate_eventhubs_json.py  # Test data generator
-└── README.md                    # This file
+│   └── metrics_streaming                  # Main streaming notebook
+└── services/
+    ├── metrics_producer.py                # Event producer
+    ├── generate_eventhubs_json.py         # Test data generator
+    └── requirements.txt                   # Python dependencies
 ```
