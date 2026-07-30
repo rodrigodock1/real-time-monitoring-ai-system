@@ -1,16 +1,31 @@
 # Real-Time Monitoring AI System
 
-Streaming data ingestion and processing system for real-time metrics and logs.
+
+This project implements a high-throughput, low-latency data pipeline for real-time metrics and logs. By combining Spark Structured Streaming with Databricks’ foundational AI embedding model, fresh log embeddings are generated in-stream with latencies as low as 200ms. These embeddings are stored in a Lakehouse vector database, enabling an AI-powered real-time query interface.
 
 ## Architecture
+
+![Real Time AI Augmented System](<https://tickets-master.s3.us-east-1.amazonaws.com/images/Real+Time+AI+Augmented+System.png>)
 
 * **Source**: Azure Event Hubs (Kafka-compatible) or JSON files (for testing)
 * **Processing**: Databricks Spark Structured Streaming
 * **Destination**: Lakebase PostgreSQL (Unity Catalog)
 * **Enrichment**: Text embeddings via Databricks BGE-Large-EN endpoint
+* **Dashboard**: Grafana with Forms and Infinity Connector
 * **Storage**: Environment-isolated volumes
   * Dev: `/Volumes/dev/default/streaming_data/`
   * Prod: `/Volumes/main/default/streaming_data/`
+
+## Real Time Dashboard
+
+* Displays Memory, CPU and log metrics every 5 seconds
+
+![Real Time Dashboard](<https://tickets-master.s3.us-east-1.amazonaws.com/images/Real+Time+Dashboard.png>)
+
+* AI Augmented queries
+
+![RAG Queries](<https://tickets-master.s3.us-east-1.amazonaws.com/images/Real+Time+AI+Queries.png>)
+
 
 ## Components
 
@@ -68,6 +83,7 @@ databricks bundle run real_time_streaming -t prod
 # Start the job
 databricks bundle run real_time_ai_processing -t prod
 ```
+
 
 ## Configuration
 
@@ -133,3 +149,16 @@ USE_JSON_FILES = False  # Set to True for JSON testing, False for Event Hubs
     ├── generate_eventhubs_json.py         # Test data generator
     └── requirements.txt                   # Python dependencies
 ```
+
+
+### Video demonstration
+
+
+<div>
+    <a href="https://www.loom.com/share/349a9c8897d944f08135dbf8055cf23c">
+      <p>Watch Demo</p>
+    </a>
+    <a href="https://www.loom.com/share/349a9c8897d944f08135dbf8055cf23c">
+      <img style="max-width:300px;" src="https://cdn.loom.com/placeholders/private-video.gif#t=0.1">
+    </a>
+  </div>

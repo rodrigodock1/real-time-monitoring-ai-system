@@ -1,0 +1,2581 @@
+{
+  "apiVersion": "dashboard.grafana.app/v2",
+  "kind": "Dashboard",
+  "metadata": {
+    "name": "adhwrnm",
+    "namespace": "stacks-1734389",
+    "uid": "fb7a2f78-bbd0-4a6f-9820-dfa8a2296397",
+    "resourceVersion": "2082531700180156416",
+    "generation": 32,
+    "creationTimestamp": "2026-07-26T14:48:13Z",
+    "labels": {
+      "grafana.app/deprecatedInternalID": "728113100611584"
+    },
+    "annotations": {
+      "grafana.app/createdBy": "user:ffsznccmygsu8f",
+      "grafana.app/saved-from-ui": "Grafana Cloud",
+      "grafana.app/updatedBy": "user:ffsznccmygsu8f",
+      "grafana.app/updatedTimestamp": "2026-07-29T18:20:23Z"
+    }
+  },
+  "spec": {
+    "annotations": [
+      {
+        "kind": "AnnotationQuery",
+        "spec": {
+          "query": {
+            "kind": "DataQuery",
+            "group": "grafana",
+            "version": "v0",
+            "datasource": {
+              "name": "-- Grafana --"
+            },
+            "spec": {}
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "builtIn": true
+        }
+      }
+    ],
+    "cursorSync": "Off",
+    "description": "Live metrics from Postgres — gauge, stat, and time series panels using placeholder queries pending real schema.",
+    "editable": true,
+    "elements": {
+      "panel-1": {
+        "kind": "Panel",
+        "spec": {
+          "id": 1,
+          "title": "CPU %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, cpu_percent as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "gauge",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": true
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": true,
+                "textMode": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0,
+                  "max": 100,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "id": 10,
+          "title": "Memory % Over Time",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, percent_memory AS \"Memory %\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "id": 11,
+          "title": "System Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "editorMode": "code",
+                        "format": "table",
+                        "range": true,
+                        "rawQuery": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category != 'kernel' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "id": 12,
+          "title": "Kernel Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "editorMode": "code",
+                        "format": "table",
+                        "range": true,
+                        "rawQuery": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category = 'kernel' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "id": 13,
+          "title": "Memory % Over Time",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, percent_memory AS \"Memory %\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-14": {
+        "kind": "Panel",
+        "spec": {
+          "id": 14,
+          "title": "System Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "editorMode": "code",
+                        "format": "table",
+                        "range": true,
+                        "rawQuery": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category != 'kernel' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;",
+                        "sql": {
+                          "columns": [
+                            {
+                              "parameters": [],
+                              "type": "function"
+                            }
+                          ],
+                          "groupBy": [
+                            {
+                              "property": {
+                                "type": "string"
+                              },
+                              "type": "groupBy"
+                            }
+                          ],
+                          "limit": 50
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-15": {
+        "kind": "Panel",
+        "spec": {
+          "id": 15,
+          "title": "Kernel Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "table",
+                        "range": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category = 'kernel' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-16": {
+        "kind": "Panel",
+        "spec": {
+          "id": 16,
+          "title": "Memory % Over Time",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, percent_memory AS \"Memory %\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-17": {
+        "kind": "Panel",
+        "spec": {
+          "id": 17,
+          "title": "System Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "table",
+                        "range": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category = 'system' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-18": {
+        "kind": "Panel",
+        "spec": {
+          "id": 18,
+          "title": "Kernel Logs",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "table",
+                        "range": true,
+                        "rawSql": "SELECT eventhub_timestamp AS time, log_raw AS \"Line\" FROM enriched_logs WHERE category = 'kernel' AND $__timeFilter(eventhub_timestamp) ORDER BY eventhub_timestamp DESC LIMIT 100;"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "logs",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "dedupStrategy": "none",
+                "enableInfiniteScrolling": false,
+                "enableLogDetails": true,
+                "prettifyLogMessage": true,
+                "showControls": false,
+                "showFieldSelector": false,
+                "showLevel": true,
+                "showLogAttributes": true,
+                "showTime": false,
+                "sortOrder": "Descending",
+                "timestampResolution": "ms",
+                "unwrappedColumns": false,
+                "wrapLogMessage": false
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-19": {
+        "kind": "Panel",
+        "spec": {
+          "id": 19,
+          "title": "Semantic Log Search",
+          "description": "Type log text and click Submit: it fetches an embedding from Databricks, then finds the 10 nearest log entries in enriched_logs by vector distance.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "yesoreyeram-infinity-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bftgkx4uqs64ga"
+                      },
+                      "spec": {
+                        "columns": [],
+                        "filters": [],
+                        "format": "table",
+                        "global_query_id": "",
+                        "parser": "backend",
+                        "root_selector": "",
+                        "source": "url",
+                        "type": "json",
+                        "url": "",
+                        "url_options": {
+                          "data": "",
+                          "method": "GET"
+                        }
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "volkovlabs-form-panel",
+            "version": "6.3.5",
+            "spec": {
+              "options": {
+                "buttonGroup": {
+                  "orientation": "center",
+                  "size": "md"
+                },
+                "confirm": false,
+                "confirmModal": {
+                  "body": "Please confirm to update changed values",
+                  "cancel": "Cancel",
+                  "columns": {
+                    "include": [
+                      "name",
+                      "oldValue",
+                      "newValue"
+                    ],
+                    "name": "Label",
+                    "newValue": "New Value",
+                    "oldValue": "Old Value"
+                  },
+                  "confirm": "Confirm",
+                  "elementDisplayMode": "modified",
+                  "title": "Confirm update request"
+                },
+                "elementValueChanged": "",
+                "elements": [
+                  {
+                    "id": "query_text",
+                    "isEscaping": true,
+                    "labelWidth": 16,
+                    "title": "Query Text",
+                    "type": "textarea",
+                    "value": "",
+                    "width": 0
+                  },
+                  {
+                    "disabled": true,
+                    "id": "computed_vector",
+                    "labelWidth": 16,
+                    "title": "Computed Vector",
+                    "type": "textarea",
+                    "value": "",
+                    "width": 0
+                  },
+                  {
+                    "disabled": true,
+                    "id": "error_analysis",
+                    "labelWidth": 16,
+                    "rows": 16,
+                    "title": "Error Analysis",
+                    "type": "textarea",
+                    "value": "",
+                    "width": 0
+                  }
+                ],
+                "initial": {
+                  "code": "",
+                  "contentType": "application/json",
+                  "datasource": "bftgkx4uqs64ga",
+                  "getPayload": "return { type: 'json', source: 'url', format: 'as-is', url: 'https://dbc-270e414b-2aca.cloud.databricks.com/serving-endpoints/databricks-bge-large-en/invocations', url_options: { method: 'POST', body_type: 'raw', body_content_type: 'application/json', data: JSON.stringify({ input: [''] }) } };",
+                  "highlight": false,
+                  "highlightColor": "red",
+                  "method": "none",
+                  "payload": {
+                    "dataset": "databricks_postgres",
+                    "editorMode": "builder",
+                    "format": "as-is",
+                    "rawQuery": true,
+                    "rawSql": "",
+                    "refId": "A",
+                    "source": "url",
+                    "type": "json",
+                    "url": "https://dbc-270e414b-2aca.cloud.databricks.com/serving-endpoints/databricks-bge-large-en/invocations",
+                    "url_options": {
+                      "body_content_type": "application/json",
+                      "body_type": "raw",
+                      "data": "{\"input\": [\"\"]}",
+                      "method": "POST"
+                    }
+                  }
+                },
+                "layout": {
+                  "orientation": "vertical",
+                  "padding": 10,
+                  "sectionVariant": "default",
+                  "variant": "single"
+                },
+                "reset": {
+                  "backgroundColor": "purple",
+                  "foregroundColor": "yellow",
+                  "icon": "process",
+                  "text": "Reset",
+                  "variant": "hidden"
+                },
+                "resetAction": {
+                  "code": "if (context.panel.response) {\n  context.grafana.notifySuccess(['Update', 'Values updated successfully.']);\n  context.grafana.refresh();\n} else {\n  context.grafana.notifyError(['Update', 'An error occurred updating values.']);\n}",
+                  "confirm": false,
+                  "getPayload": "return {}",
+                  "mode": "initial",
+                  "payload": {}
+                },
+                "resetActionMode": "disabled",
+                "saveDefault": {
+                  "icon": "save",
+                  "text": "Save Default",
+                  "variant": "hidden"
+                },
+                "submit": {
+                  "backgroundColor": "purple",
+                  "foregroundColor": "yellow",
+                  "icon": "cloud-upload",
+                  "text": "Submit",
+                  "variant": "primary"
+                },
+                "sync": true,
+                "update": {
+                  "code": "const currentText = context.panel.elements.find(e => e.id === 'query_text').value;\n\nfetch('/api/ds/query', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({\n    queries: [{\n      refId: 'A',\n      datasource: { uid: 'bftgkx4uqs64ga', type: 'yesoreyeram-infinity-datasource' },\n      type: 'json',\n      source: 'url',\n      format: 'as-is',\n      url: 'https://dbc-270e414b-2aca.cloud.databricks.com/serving-endpoints/databricks-bge-large-en/invocations',\n      url_options: {\n        method: 'POST',\n        body_type: 'raw',\n        body_content_type: 'application/json',\n        data: JSON.stringify({ input: [currentText] })\n      },\n      maxDataPoints: 100,\n      intervalMs: 1000\n    }],\n    from: 'now-5m',\n    to: 'now'\n  })\n})\n  .then(function(res) { return res.json(); })\n  .then(function(raw) {\n    function deepFindNamed(obj, depth) {\n      if (obj === null || obj === undefined || depth > 10) return null;\n      if (Array.isArray(obj)) {\n        for (let i = 0; i < obj.length; i++) {\n          const found = deepFindNamed(obj[i], depth + 1);\n          if (found) return found;\n        }\n        return null;\n      }\n      if (typeof obj === 'string') {\n        try { return deepFindNamed(JSON.parse(obj), depth + 1); } catch (e) { return null; }\n      }\n      if (typeof obj === 'object') {\n        if (Array.isArray(obj.embedding) && obj.embedding.length > 50) return obj.embedding;\n        const keys = Object.keys(obj);\n        for (let i = 0; i < keys.length; i++) {\n          const found = deepFindNamed(obj[keys[i]], depth + 1);\n          if (found) return found;\n        }\n      }\n      return null;\n    }\n\n    function deepFindLargeArray(obj, depth) {\n      if (obj === null || obj === undefined || depth > 10) return null;\n      if (Array.isArray(obj)) {\n        if (obj.length > 50 && typeof obj[0] === 'number') return obj;\n        for (let i = 0; i < obj.length; i++) {\n          const found = deepFindLargeArray(obj[i], depth + 1);\n          if (found) return found;\n        }\n        return null;\n      }\n      if (typeof obj === 'string') {\n        try { return deepFindLargeArray(JSON.parse(obj), depth + 1); } catch (e) { return null; }\n      }\n      if (typeof obj === 'object') {\n        const keys = Object.keys(obj);\n        for (let i = 0; i < keys.length; i++) {\n          const found = deepFindLargeArray(obj[keys[i]], depth + 1);\n          if (found) return found;\n        }\n      }\n      return null;\n    }\n\n    const embedding = deepFindNamed(raw, 0) || deepFindLargeArray(raw, 0);\n    if (!embedding) {\n      let dump;\n      try { dump = JSON.stringify(raw).slice(0, 800); } catch (e) { dump = String(raw).slice(0, 800); }\n      context.grafana.notifyError(['Embedding', 'Could not parse embedding. Raw: ' + dump]);\n      return;\n    }\n    const vectorStr = '[' + embedding.join(',') + ']';\n    context.panel.patchFormValue({ computed_vector: vectorStr });\n    context.grafana.locationService.partial({ 'var-embedding_vector': vectorStr }, true);\n    context.grafana.refresh();\n    context.grafana.notifySuccess(['Semantic Search', 'Vector computed (' + embedding.length + ' dims). Results updated below.']);\n    runErrorAnalysis(vectorStr);\n  })\n  .catch(function(err) {\n    context.grafana.notifyError(['Fetch Error', String(err)]);\n  });\n\nfunction extractFieldFromFrames(raw, fieldName) {\n  try {\n    const results = raw.results || {};\n    const resultKeys = Object.keys(results);\n    for (let r = 0; r < resultKeys.length; r++) {\n      const frames = results[resultKeys[r]].frames || [];\n      for (let f = 0; f < frames.length; f++) {\n        const fields = (frames[f].schema && frames[f].schema.fields) || [];\n        let idx = -1;\n        for (let i = 0; i < fields.length; i++) {\n          if (fields[i].name === fieldName) { idx = i; break; }\n        }\n        if (idx !== -1) {\n          const values = frames[f].data && frames[f].data.values;\n          if (values && values[idx] && values[idx].length > 0) {\n            return values[idx][0];\n          }\n        }\n      }\n    }\n  } catch (e) {}\n  return null;\n}\n\nfunction extractAllValuesFromFrames(raw, fieldName) {\n  try {\n    const results = raw.results || {};\n    const resultKeys = Object.keys(results);\n    for (let r = 0; r < resultKeys.length; r++) {\n      const frames = results[resultKeys[r]].frames || [];\n      for (let f = 0; f < frames.length; f++) {\n        const fields = (frames[f].schema && frames[f].schema.fields) || [];\n        let idx = -1;\n        for (let i = 0; i < fields.length; i++) {\n          if (fields[i].name === fieldName) { idx = i; break; }\n        }\n        if (idx !== -1) {\n          const values = frames[f].data && frames[f].data.values;\n          if (values && values[idx]) return values[idx];\n        }\n      }\n    }\n  } catch (e) {}\n  return [];\n}\n\nfunction runErrorAnalysis(vectorStr) {\n  const sql = \"SELECT log_raw, embedding_vector <=> '\" + vectorStr + \"'::vector AS distance FROM enriched_logs WHERE eventhub_timestamp >= NOW() - INTERVAL '6 hour' AND category != 'kernel' ORDER BY distance DESC LIMIT 10;\";\n  fetch('/api/ds/query', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({\n      queries: [{\n        refId: 'B',\n        datasource: { uid: 'bfta8yj9xeghsb', type: 'grafana-postgresql-datasource' },\n        rawSql: sql,\n        format: 'table'\n      }],\n      from: 'now-5m',\n      to: 'now'\n    })\n  })\n    .then(function(res) { return res.json(); })\n    .then(function(sqlRaw) {\n      const logTexts = extractAllValuesFromFrames(sqlRaw, 'log_raw');\n      if (!logTexts || logTexts.length === 0) {\n        let dump;\n        try { dump = JSON.stringify(sqlRaw).slice(0, 800); } catch (e) { dump = String(sqlRaw).slice(0, 800); }\n        context.grafana.notifyError(['Analysis', 'Could not read log_raw from query result. Raw: ' + dump]);\n        return null;\n      }\n      const combinedLogs = logTexts.map(function(t, i) { return (i + 1) + '. ' + t; }).join('\\n');\n      return fetch('/api/ds/query', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify({\n          queries: [{\n            refId: 'C',\n            datasource: { uid: 'bftgkx4uqs64ga', type: 'yesoreyeram-infinity-datasource' },\n            type: 'json',\n            source: 'url',\n            format: 'as-is',\n            url: 'https://dbc-270e414b-2aca.cloud.databricks.com/serving-endpoints/databricks-gpt-oss-20b/invocations',\n            url_options: {\n              method: 'POST',\n              body_type: 'raw',\n              body_content_type: 'application/json',\n              data: JSON.stringify({\n                messages: [{ role: 'user', content: 'Analyse the following top 10 most similar log entries:\\n' + combinedLogs }],\n                max_tokens: 500\n              })\n            },\n            maxDataPoints: 100,\n            intervalMs: 1000\n          }],\n          from: 'now-5m',\n          to: 'now'\n        })\n      });\n    })\n    .then(function(res) { return res ? res.json() : null; })\n    .then(function(llmRaw) {\n      if (!llmRaw) return;\n      let choices = extractFieldFromFrames(llmRaw, 'choices');\n      if (typeof choices === 'string') {\n        try { choices = JSON.parse(choices); } catch (e) { choices = null; }\n      }\n      if (!choices || !choices[0]) {\n        let dump;\n        try { dump = JSON.stringify(llmRaw).slice(0, 800); } catch (e) { dump = String(llmRaw).slice(0, 800); }\n        context.grafana.notifyError(['Analysis', 'Could not parse LLM response. Raw: ' + dump]);\n        return;\n      }\n      const content = choices[0].message ? choices[0].message.content : null;\n      let answer = null;\n      if (typeof content === 'string') {\n        answer = content;\n      } else if (Array.isArray(content)) {\n        for (let i = 0; i < content.length; i++) {\n          if (content[i] && typeof content[i].text === 'string') { answer = content[i].text; break; }\n        }\n        if (!answer && content[1] && content[1].text) answer = content[1].text;\n      }\n      if (!answer) {\n        context.grafana.notifyError(['Analysis', 'LLM response had no text content.']);\n        return;\n      }\n      context.panel.patchFormValue({ error_analysis: answer });\n      context.grafana.notifySuccess(['Analysis', 'Error analysis complete.']);\n    })\n    .catch(function(err) {\n      context.grafana.notifyError(['Analysis Error', String(err)]);\n    });\n}",
+                  "confirm": false,
+                  "contentType": "application/json",
+                  "datasource": "bftgkx4uqs64ga",
+                  "getPayload": "return {};",
+                  "method": "none",
+                  "payload": {
+                    "dataset": "databricks_postgres",
+                    "editorMode": "builder",
+                    "format": "as-is",
+                    "rawSql": "",
+                    "refId": "A",
+                    "source": "url",
+                    "type": "json",
+                    "url": "https://dbc-270e414b-2aca.cloud.databricks.com/serving-endpoints/databricks-bge-large-en/invocations",
+                    "url_options": {
+                      "body_content_type": "application/json",
+                      "body_type": "raw",
+                      "data": "{\"input\": [\"\"]}",
+                      "method": "POST"
+                    }
+                  },
+                  "payloadMode": "custom",
+                  "updatedMessage": "Embedding request sent"
+                },
+                "updateEnabled": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "id": 2,
+          "title": "Memory %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, percent_memory as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-20": {
+        "kind": "Panel",
+        "spec": {
+          "id": 20,
+          "title": "Similar Logs",
+          "description": "Top 10 nearest log entries by embedding distance",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "table",
+                        "range": true,
+                        "rawSql": "SELECT\n    eventhub_timestamp,\n    category,\n    log_raw,\n    embedding_vector <=> COALESCE(\n        NULLIF('${embedding_vector}', 'pending')::vector,\n        (SELECT e2.embedding_vector FROM enriched_logs e2 WHERE e2.embedding_vector IS NOT NULL LIMIT 1)\n    ) AS distance\nFROM enriched_logs\nWHERE eventhub_timestamp >= NOW() - INTERVAL '6 hour'\n  AND category != 'kernel'\nORDER BY distance\nLIMIT 10;"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "table",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "cellHeight": "sm",
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": true,
+                    "displayName": "distance"
+                  }
+                ]
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "custom": {
+                    "align": "auto",
+                    "cellOptions": {
+                      "type": "auto"
+                    },
+                    "footer": {
+                      "reducers": []
+                    },
+                    "inspect": false
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "scope": "series",
+                      "options": "log_raw"
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.width",
+                        "value": 861
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "panel-21": {
+        "kind": "Panel",
+        "spec": {
+          "id": 21,
+          "title": "CPU %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, cpu_percent as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "gauge",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": true
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": true,
+                "textMode": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0,
+                  "max": 100,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-22": {
+        "kind": "Panel",
+        "spec": {
+          "id": 22,
+          "title": "Memory %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, percent_memory as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0,
+                  "max": 100,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "id": 3,
+          "title": "Metric Time Series",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, total_memory AS \"Total Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, available_memory AS \"Available Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Total Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "left"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Available Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "id": 4,
+          "title": "CPU %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, cpu_percent as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "gauge",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": true
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": true,
+                "textMode": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "min": 0,
+                  "max": 100,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "id": 5,
+          "title": "Memory %",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": false,
+                        "rawSql": "SELECT NOW() as time, percent_memory as value FROM parsed_metrics ORDER BY timestamp DESC LIMIT 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "percent",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              }
+            }
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "id": 6,
+          "title": "Metric Time Series",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, total_memory AS \"Total Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, available_memory AS \"Available Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Total Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "left"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Available Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "id": 9,
+          "title": "Metric Time Series",
+          "description": "",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, total_memory AS \"Total Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "grafana-postgresql-datasource",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "bfta8yj9xeghsb"
+                      },
+                      "spec": {
+                        "app": "grafana-assistant-app",
+                        "format": "time_series",
+                        "range": true,
+                        "rawSql": "SELECT to_timestamp(timestamp) AS time, available_memory AS \"Available Memory\" FROM parsed_metrics WHERE $__unixEpochFilter(timestamp) ORDER BY 1"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.2.0-29988805803",
+            "spec": {
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "single",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Total Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "left"
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Available Memory"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "bytes"
+                      },
+                      {
+                        "id": "custom.axisPlacement",
+                        "value": "right"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "layout": {
+      "kind": "TabsLayout",
+      "spec": {
+        "tabs": [
+          {
+            "kind": "TabsLayoutTab",
+            "spec": {
+              "title": "System 1",
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-1"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-2"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 8,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-3"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 16,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-10"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-11"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-12"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "TabsLayoutTab",
+            "spec": {
+              "title": "System 2",
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-4"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-5"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 8,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-6"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 16,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-13"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-14"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-15"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "TabsLayoutTab",
+            "spec": {
+              "title": "System 3",
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-21"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 0,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-22"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 8,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-9"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 16,
+                        "width": 24,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-16"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-17"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 12,
+                        "y": 24,
+                        "width": 12,
+                        "height": 8,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-18"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "kind": "TabsLayoutTab",
+            "spec": {
+              "title": "AI Query",
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 24,
+                        "height": 15,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-19"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 15,
+                        "width": 24,
+                        "height": 10,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-20"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "links": [],
+    "liveNow": false,
+    "preload": false,
+    "tags": [],
+    "timeSettings": {
+      "timezone": "browser",
+      "from": "now-5m",
+      "to": "now",
+      "autoRefresh": "",
+      "autoRefreshIntervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "hideTimepicker": false,
+      "fiscalYearStartMonth": 0
+    },
+    "title": "RealTime Metrics",
+    "variables": [
+      {
+        "kind": "TextVariable",
+        "spec": {
+          "name": "embedding_vector",
+          "current": {
+            "text": "[-0.0098724365234375,-0.033355712890625,0.0061492919921875,0.0236663818359375,0.023895263671875,-0.0207672119140625,0.000827789306640625,0.019805908203125,0.00878143310546875,0.022491455078125,0.09521484375,-0.01549530029296875,0.0307159423828125,-0.03265380859375,-0.0550537109375,0.02276611328125,0.0097503662109375,-0.032958984375,-0.00763702392578125,-0.03369140625,0.002979278564453125,-0.006931304931640625,-0.06402587890625,0.008697509765625,-0.0015783309936523438,0.040802001953125,-0.02685546875,0.020355224609375,0.0283050537109375,0.00518798828125,-0.052276611328125,-0.038726806640625,-0.00605010986328125,-0.018280029296875,-0.00013768672943115234,0.031280517578125,0.004436492919921875,-0.06640625,-0.0274505615234375,-0.07763671875,0.0033893585205078125,-0.00237274169921875,0.06640625,0.032623291015625,-0.04351806640625,-0.018951416015625,-0.050140380859375,-0.03204345703125,0.03509521484375,-0.049163818359375,0.0296783447265625,-0.00730133056640625,0.0355224609375,0.0033893585205078125,0.00754547119140625,-0.0187530517578125,0.0001825094223022461,-0.0209808349609375,-0.01358795166015625,0.0177154541015625,-0.0258941650390625,-0.01763916015625,-0.0171661376953125,-0.03546142578125,0.08270263671875,0.033782958984375,0.0164947509765625,0.005985260009765625,0.047607421875,-0.0253143310546875,0.0142059326171875,0.041168212890625,-0.01538848876953125,0.0297088623046875,-0.04132080078125,0.01517486572265625,-0.026641845703125,0.00594329833984375,0.023040771484375,-0.02947998046875,0.0172576904296875,0.02032470703125,-0.02081298828125,0.042724609375,-0.043853759765625,0.0005879402160644531,-0.015716552734375,0.007659912109375,0.016754150390625,0.00530242919921875,-0.001186370849609375,0.01323699951171875,0.01534271240234375,-0.05902099609375,0.017333984375,0.0128631591796875,-0.02801513671875,0.07489013671875,-0.02392578125,-0.01299285888671875,0.0156097412109375,0.0279693603515625,0.01552581787109375,0.042236328125,-0.023834228515625,-0.00885009765625,0.0025920867919921875,-0.025115966796875,-0.0030422210693359375,-0.00952911376953125,-0.0263519287109375,-0.0106964111328125,0.048553466796875,-0.0151214599609375,-0.026123046875,0.02593994140625,0.03277587890625,0.03912353515625,-0.0276031494140625,-0.0167388916015625,0.0233154296875,-0.003971099853515625,0.0258941650390625,-0.008697509765625,-0.0506591796875,-0.026641845703125,-0.006137847900390625,0.0020389556884765625,-0.03875732421875,-0.029296875,0.002044677734375,-0.006130218505859375,0.0048828125,0.05645751953125,-0.021759033203125,-0.0028171539306640625,-0.01763916015625,0.031768798828125,-0.00588226318359375,-0.015106201171875,0.042083740234375,0.0126190185546875,-0.003696441650390625,0.0311431884765625,0.0231475830078125,0.0128936767578125,0.0110015869140625,-0.038116455078125,-0.035125732421875,0.023101806640625,-0.051300048828125,0.0178070068359375,-0.032623291015625,0.0223846435546875,0.0212860107421875,-0.031982421875,0.0012807846069335938,0.006671905517578125,0.01027679443359375,0.049407958984375,-0.0227508544921875,0.014434814453125,-0.01436614990234375,0.005695343017578125,-0.0013866424560546875,0.028076171875,-0.0306549072265625,0.0187530517578125,0.032012939453125,-0.00865936279296875,0.019134521484375,-0.01055908203125,0.00937652587890625,-0.0017061233520507812,0.01166534423828125,0.021484375,0.016448974609375,0.0095367431640625,0.033843994140625,0.06463623046875,-0.0135650634765625,-0.027374267578125,-0.01532745361328125,0.0283966064453125,0.0238800048828125,-0.00820159912109375,0.0038890838623046875,-0.035125732421875,-0.01947021484375,0.015411376953125,0.02081298828125,0.034454345703125,-0.0390625,0.017578125,-0.000423431396484375,-0.0007443428039550781,-0.036895751953125,-0.038482666015625,-0.00669097900390625,-0.03021240234375,0.01081085205078125,0.04461669921875,-0.0248565673828125,0.03900146484375,0.01538848876953125,-0.035125732421875,-0.011932373046875,0.0732421875,-0.0667724609375,0.003894805908203125,0.046112060546875,0.00033354759216308594,-0.0189056396484375,-0.039947509765625,0.018951416015625,-0.025360107421875,0.00373077392578125,0.039581298828125,-0.0006952285766601562,-0.025146484375,-0.01458740234375,0.012298583984375,0.016143798828125,0.033721923828125,-0.0284271240234375,0.02740478515625,-0.005741119384765625,0.024688720703125,0.0190277099609375,0.0284271240234375,-0.039093017578125,0.060882568359375,-0.005329132080078125,0.0771484375,0.037841796875,0.0506591796875,0.0228271484375,0.017333984375,0.01421356201171875,0.0205535888671875,-0.0152587890625,-0.01052093505859375,-0.007266998291015625,0.01505279541015625,0.0092315673828125,0.022125244140625,-0.0135650634765625,-0.018585205078125,-0.004070281982421875,0.04052734375,-0.00778961181640625,0.0017681121826171875,0.0236968994140625,0.060546875,-0.035430908203125,0.006038665771484375,0.0026035308837890625,0.03692626953125,-0.0408935546875,0.029144287109375,-0.00634002685546875,-0.0085296630859375,0.008056640625,0.0283050537109375,-0.01065826416015625,0.02813720703125,-0.0106658935546875,0.03424072265625,0.0238037109375,-0.01157379150390625,-0.03155517578125,-0.05072021484375,-0.034698486328125,-0.0277862548828125,-0.040374755859375,0.0194854736328125,-0.005970001220703125,-0.0261077880859375,0.041900634765625,0.0016870498657226562,-0.03875732421875,-0.044891357421875,-0.003742218017578125,0.004734039306640625,0.0452880859375,0.03173828125,-0.01067352294921875,0.02813720703125,0.0004813671112060547,0.06787109375,-0.027618408203125,-0.04766845703125,-0.07122802734375,0.034027099609375,0.020843505859375,-0.031463623046875,-0.019744873046875,-0.00872039794921875,-0.047882080078125,-0.0033969879150390625,0.004154205322265625,0.007350921630859375,-0.0034732818603515625,-0.00965118408203125,-0.0341796875,0.01503753662109375,0.0157318115234375,-0.045379638671875,0.05841064453125,0.0286712646484375,-0.030548095703125,0.025543212890625,0.020263671875,-0.02703857421875,0.00417327880859375,0.023956298828125,0.033355712890625,0.030975341796875,-0.037811279296875,0.0203857421875,-0.0301361083984375,0.0260009765625,-0.0142822265625,-0.006717681884765625,-0.043426513671875,0.046142578125,0.045562744140625,-0.049591064453125,0.04180908203125,-0.023834228515625,-0.0033779144287109375,-0.0401611328125,0.0017690658569335938,0.0013332366943359375,0.00917816162109375,0.030242919921875,0.001495361328125,-0.014801025390625,-0.04315185546875,0.01021575927734375,0.044891357421875,-0.0628662109375,-0.01788330078125,0.019134521484375,-0.0028209686279296875,-0.004978179931640625,0.0007915496826171875,-0.01485443115234375,-0.057952880859375,0.0302734375,-0.0226593017578125,0.0170440673828125,0.02783203125,-0.01238250732421875,0.022613525390625,0.03204345703125,-0.0433349609375,0.024200439453125,0.041473388671875,0.034881591796875,0.0273895263671875,-0.005680084228515625,0.008209228515625,-0.026611328125,0.0010223388671875,-0.01495361328125,0.01605224609375,0.000244140625,0.048736572265625,-0.0161590576171875,0.04791259765625,0.0245208740234375,-0.00211334228515625,0.049957275390625,-0.0066070556640625,0.01910400390625,0.039154052734375,-0.001865386962890625,0.0231170654296875,-0.05023193359375,0.025115966796875,-0.02423095703125,0.038482666015625,0.03955078125,0.0175628662109375,0.024444580078125,-0.027801513671875,-0.0180511474609375,-0.06170654296875,0.00756072998046875,-0.00997161865234375,-0.032684326171875,-0.03790283203125,-0.0013685226440429688,-0.048919677734375,-0.0552978515625,0.057342529296875,0.012664794921875,-0.002666473388671875,-0.0004448890686035156,0.040618896484375,-0.0230255126953125,0.046966552734375,0.00580596923828125,0.01552581787109375,-0.0015153884887695312,-0.005855560302734375,0.0869140625,0.036041259765625,-0.03192138671875,-0.051788330078125,-0.02716064453125,-0.043304443359375,0.0211181640625,0.031341552734375,-0.0254364013671875,-0.006229400634765625,0.0474853515625,-0.01220703125,0.00510406494140625,-0.01532745361328125,0.00010162591934204102,-0.00673675537109375,0.007904052734375,0.024322509765625,-0.053955078125,-0.00556182861328125,-0.038116455078125,0.07110595703125,0.06488037109375,-0.004291534423828125,-0.020721435546875,0.0242919921875,-0.041839599609375,-0.034942626953125,0.0303497314453125,0.0287933349609375,-0.01424407958984375,0.016754150390625,-0.0679931640625,0.029541015625,0.0499267578125,-0.02813720703125,-0.0287628173828125,-0.0138397216796875,-0.005916595458984375,-0.0092926025390625,0.00827789306640625,-0.0246124267578125,-0.023040771484375,0.020233154296875,-0.057281494140625,0.061981201171875,-0.00618743896484375,-0.004474639892578125,0.0025005340576171875,0.01378631591796875,0.02362060546875,0.01515960693359375,-0.021148681640625,0.014434814453125,-0.009124755859375,0.027496337890625,-0.00669097900390625,0.004730224609375,0.07220458984375,-0.0157928466796875,-0.0565185546875,0.040191650390625,-0.0069732666015625,-0.0004181861877441406,-0.0053558349609375,0.0229034423828125,-0.0723876953125,0.058807373046875,0.00864410400390625,0.000021755695343017578,0.0310516357421875,-0.0008730888366699219,-0.0081024169921875,0.0086517333984375,0.043670654296875,-0.0330810546875,-0.005741119384765625,-0.03955078125,-0.03558349609375,-0.0120697021484375,-0.015716552734375,-0.005413055419921875,0.0212860107421875,-0.0204620361328125,-0.01131439208984375,-0.01039886474609375,-0.018310546875,-0.006378173828125,-0.007518768310546875,-0.035308837890625,0.0041961669921875,-0.03173828125,0.005565643310546875,0.038726806640625,0.014434814453125,-0.032318115234375,0.000732421875,0.0140838623046875,-0.06927490234375,-0.0535888671875,0.00693511962890625,-0.0037689208984375,0.0247955322265625,-0.037445068359375,-0.01617431640625,-0.05670166015625,-0.0015277862548828125,0.0258941650390625,-0.003314971923828125,0.0038433074951171875,-0.019073486328125,-0.045928955078125,0.04669189453125,0.0110321044921875,-0.031585693359375,-0.01123046875,0.0192108154296875,-0.016387939453125,0.0236358642578125,0.01064300537109375,0.037078857421875,-0.057220458984375,-0.03546142578125,-0.003139495849609375,-0.01348876953125,0.0178375244140625,-0.046539306640625,-0.03533935546875,-0.0274658203125,0.049163818359375,-0.004909515380859375,-0.0293426513671875,0.0037593841552734375,-0.033447265625,-0.01285552978515625,-0.01105499267578125,-0.0221405029296875,-0.043243408203125,-0.0191192626953125,0.0248870849609375,0.0552978515625,-0.0020465850830078125,-0.0223236083984375,-0.0159912109375,0.03582763671875,0.01141357421875,-0.008209228515625,-0.0309906005859375,0.00855255126953125,-0.045867919921875,-0.0202178955078125,0.02313232421875,-0.0094146728515625,0.0219573974609375,0.01131439208984375,-0.050567626953125,0.0199127197265625,-0.044921875,-0.022613525390625,-0.005229949951171875,-0.012969970703125,0.0137939453125,-0.0017070770263671875,0.0135650634765625,0.00014448165893554688,0.049560546875,0.035614013671875,0.041778564453125,0.0064544677734375,-0.044097900390625,-0.01538848876953125,-0.037445068359375,0.018524169921875,-0.011444091796875,-0.048492431640625,-0.04742431640625,-0.040618896484375,-0.0038928985595703125,0.0013561248779296875,0.027984619140625,0.02630615234375,0.00389862060546875,-0.01158905029296875,-0.046234130859375,0.030303955078125,0.04736328125,-0.052734375,0.0131072998046875,-0.00188446044921875,-0.002300262451171875,-0.00044345855712890625,-0.0655517578125,-0.0709228515625,-0.051055908203125,-0.020355224609375,0.0472412109375,-0.0017251968383789062,0.00797271728515625,-0.020416259765625,-0.01264190673828125,-0.03558349609375,0.0682373046875,-0.02685546875,0.0212554931640625,0.05023193359375,0.0234375,0.002796173095703125,0.02008056640625,-0.0010166168212890625,-0.007358551025390625,-0.038482666015625,0.07537841796875,-0.0208740234375,-0.055267333984375,0.01554107666015625,0.032928466796875,-0.05023193359375,-0.027679443359375,0.0012273788452148438,0.01387786865234375,0.024169921875,-0.07427978515625,-0.0112152099609375,-0.03411865234375,-0.01373291015625,0.022705078125,0.040130615234375,-0.01038360595703125,0.036102294921875,0.005367279052734375,0.057586669921875,-0.01214599609375,0.032440185546875,0.03265380859375,-0.006618499755859375,0.0103607177734375,-0.02008056640625,-0.0239105224609375,-0.0019025802612304688,0.0289764404296875,0.0283355712890625,-0.004749298095703125,0.011566162109375,0.00446319580078125,0.004909515380859375,0.01294708251953125,0.011444091796875,0.01309967041015625,0.04541015625,-0.0396728515625,-0.0163421630859375,0.00658416748046875,0.007778167724609375,0.0280303955078125,0.0294342041015625,-0.007579803466796875,0.0005183219909667969,0.07659912109375,0.00774383544921875,-0.005054473876953125,-0.0555419921875,-0.03948974609375,-0.059417724609375,-0.053985595703125,-0.031890869140625,0.00988006591796875,0.018463134765625,0.0435791015625,0.016845703125,-0.0289764404296875,0.00798797607421875,-0.022552490234375,-0.06536865234375,-0.0176239013671875,-0.01551055908203125,0.012420654296875,-0.028350830078125,-0.0865478515625,-0.01415252685546875,-0.012237548828125,-0.01708984375,0.0423583984375,0.015869140625,0.0310516357421875,-0.025115966796875,0.055084228515625,-0.0094451904296875,0.0252532958984375,0.0010356903076171875,-0.021514892578125,0.0088653564453125,-0.0054168701171875,0.01099395751953125,-0.01739501953125,-0.0027828216552734375,-0.044281005859375,0.01715087890625,-0.0257568359375,-0.04510498046875,-0.031524658203125,0.0223236083984375,-0.01373291015625,0.00022494792938232422,-0.04534912109375,-0.05059814453125,-0.0136566162109375,-0.038848876953125,0.0229644775390625,-0.01507568359375,-0.01396942138671875,0.03424072265625,-0.033111572265625,-0.024658203125,0.0509033203125,-0.0007376670837402344,0.00928497314453125,0.01314544677734375,0.035430908203125,0.01485443115234375,-0.00563812255859375,0.0169525146484375,0.0017871856689453125,0.0283050537109375,-0.036895751953125,0.0182647705078125,0.018463134765625,0.004993438720703125,0.056915283203125,-0.055938720703125,-0.0157470703125,-0.04144287109375,-0.01532745361328125,-0.00039958953857421875,0.05987548828125,0.007755279541015625,0.0093536376953125,0.08294677734375,-0.03411865234375,-0.038665771484375,-0.048797607421875,-0.06103515625,-0.0130615234375,0.00606536865234375,0.0001609325408935547,-0.007511138916015625,0.006656646728515625,-0.0458984375,0.01003265380859375,-0.0254058837890625,-0.01505279541015625,0.0202789306640625,0.0177764892578125,0.004184722900390625,0.0260009765625,-0.0266265869140625,-0.01111602783203125,0.007720947265625,0.07781982421875,-0.04315185546875,-0.0679931640625,0.02313232421875,0.008270263671875,0.0452880859375,-0.006397247314453125,-0.007610321044921875,0.023345947265625,-0.0030574798583984375,-0.0218353271484375,0.05908203125,0.035919189453125,-0.026214599609375,0.02276611328125,0.0028934478759765625,0.00402069091796875,-0.011810302734375,0.047576904296875,-0.0163421630859375,-0.0423583984375,-0.06109619140625,0.038970947265625,0.0118408203125,0.019989013671875,0.00856781005859375,0.002216339111328125,0.0300750732421875,-0.030181884765625,-0.048370361328125,0.0224151611328125,0.0222930908203125,0.0193023681640625,0.0311126708984375,-0.022430419921875,0.00982666015625,0.0438232421875,-0.0133056640625,0.0164031982421875,0.00281524658203125,-0.004177093505859375,-0.03265380859375,-0.051910400390625,0.015716552734375,-0.00609588623046875,-0.0176239013671875,-0.006992340087890625,-0.038360595703125,-0.0321044921875,-0.005733489990234375,0.046661376953125,-0.030853271484375,0.02532958984375,-0.0374755859375,0.011932373046875,-0.0245361328125,-0.012725830078125,0.01213836669921875,0.044525146484375,0.0160675048828125,0.0179595947265625,0.0272674560546875,0.017059326171875,-0.00853729248046875,0.0214996337890625,-0.0131988525390625,0.0030364990234375,-0.0333251953125,0.0001442432403564453,0.01702880859375,-0.0246124267578125,-0.048095703125,0.0142364501953125,-0.050628662109375,0.00560760498046875,0.005733489990234375,-0.0465087890625,-0.002227783203125,-0.0198516845703125,-0.0210113525390625,-0.01222991943359375,0.0638427734375,-0.04998779296875,-0.0435791015625,0.0053558349609375,-0.0204010009765625,-0.00978851318359375,-0.004283905029296875,0.01018524169921875,0.032562255859375,-0.0024051666259765625,0.03973388671875,0.0162200927734375,-0.0167236328125,0.015838623046875,-0.06378173828125,-0.0030002593994140625,-0.0024394989013671875,-0.0322265625,-0.0028553009033203125,0.006927490234375,-0.040191650390625,-0.0125732421875,-0.040618896484375,-0.0016908645629882812,0.0196075439453125,0.016693115234375,-0.004207611083984375,-0.06402587890625,-0.013336181640625,0.042266845703125,-0.0043182373046875,-0.023834228515625,0.050537109375,0.050567626953125,-0.011627197265625,-0.00685882568359375,-0.035736083984375,-0.0211181640625,0.01146697998046875,-0.0145721435546875,0.0665283203125,-0.0161590576171875,-0.00420379638671875,0.0195465087890625,-0.055755615234375,0.0080413818359375,-0.0093231201171875,-0.0283660888671875,-0.00969696044921875,0.0043182373046875,0.037811279296875,-0.006740570068359375,0.01067352294921875,-0.033050537109375,0.005641937255859375,0.0239715576171875,0.068359375,-0.0222625732421875,0.04840087890625,0.0300750732421875,0.0208892822265625,0.007587432861328125,-0.012939453125,0.0019369125366210938,-0.03924560546875,-0.01226806640625,0.01259613037109375,0.00989532470703125,0.006969451904296875,-0.028961181640625,0.0330810546875,0.02508544921875,0.0209197998046875,0.0293121337890625,-0.0736083984375,-0.03326416015625,-0.028076171875,-0.04034423828125,-0.0214080810546875,0.019927978515625,0.0076446533203125,-0.0247955322265625,-0.005802154541015625,-0.07342529296875,0.231201171875,0.053436279296875,0.0195465087890625,0.019805908203125,0.01537322998046875,0.0188446044921875,0.0540771484375,0.01003265380859375,0.01421356201171875,0.0127410888671875,0.046112060546875,0.0265655517578125,0.0207672119140625,0.059295654296875,0.065185546875,0.07366943359375,-0.06048583984375,-0.00853729248046875,0.0234375,-0.00763702392578125,-0.035858154296875,0.021728515625,0.0195159912109375,0.04107666015625,0.00606536865234375,-0.006572723388671875,0.062164306640625,-0.0384521484375,-0.0009369850158691406,-0.0016717910766601562,0.05560302734375,-0.0572509765625,-0.005794525146484375,-0.031768798828125,-0.01320648193359375,0.060150146484375,-0.0068206787109375,-0.004848480224609375,-0.00414276123046875,0.041412353515625,0.0186614990234375,0.01593017578125,0.01279449462890625,-0.0232696533203125,0.01739501953125,0.00852203369140625,-0.0421142578125,0.039703369140625,-0.00771331787109375,-0.04888916015625,0.0584716796875,-0.051239013671875,0.024139404296875,0.0090179443359375,-0.0276031494140625,-0.0014009475708007812,0.0019369125366210938,-0.042938232421875,-0.014068603515625,0.031463623046875,0.0338134765625,-0.02105712890625,-0.0482177734375,-0.01154327392578125,-0.0262908935546875,-0.005878448486328125,0.01404571533203125,-0.0290374755859375,-0.01540374755859375,-0.028289794921875,0.003131866455078125,-0.0184173583984375,0.00507354736328125,-0.01605224609375,-0.031402587890625,0.01044464111328125,-0.0178070068359375,0.013763427734375,0.02587890625,0.0012235641479492188,-0.0011320114135742188,-0.03729248046875,0.01678466796875,0.00611114501953125,0.03900146484375,0.01306915283203125,-0.023040771484375,-0.0589599609375,-0.0186004638671875,0.0625,0.044891357421875,0.0240631103515625,-0.012725830078125,-0.0300445556640625,-0.001216888427734375]",
+            "value": "[-0.0098724365234375,-0.033355712890625,0.0061492919921875,0.0236663818359375,0.023895263671875,-0.0207672119140625,0.000827789306640625,0.019805908203125,0.00878143310546875,0.022491455078125,0.09521484375,-0.01549530029296875,0.0307159423828125,-0.03265380859375,-0.0550537109375,0.02276611328125,0.0097503662109375,-0.032958984375,-0.00763702392578125,-0.03369140625,0.002979278564453125,-0.006931304931640625,-0.06402587890625,0.008697509765625,-0.0015783309936523438,0.040802001953125,-0.02685546875,0.020355224609375,0.0283050537109375,0.00518798828125,-0.052276611328125,-0.038726806640625,-0.00605010986328125,-0.018280029296875,-0.00013768672943115234,0.031280517578125,0.004436492919921875,-0.06640625,-0.0274505615234375,-0.07763671875,0.0033893585205078125,-0.00237274169921875,0.06640625,0.032623291015625,-0.04351806640625,-0.018951416015625,-0.050140380859375,-0.03204345703125,0.03509521484375,-0.049163818359375,0.0296783447265625,-0.00730133056640625,0.0355224609375,0.0033893585205078125,0.00754547119140625,-0.0187530517578125,0.0001825094223022461,-0.0209808349609375,-0.01358795166015625,0.0177154541015625,-0.0258941650390625,-0.01763916015625,-0.0171661376953125,-0.03546142578125,0.08270263671875,0.033782958984375,0.0164947509765625,0.005985260009765625,0.047607421875,-0.0253143310546875,0.0142059326171875,0.041168212890625,-0.01538848876953125,0.0297088623046875,-0.04132080078125,0.01517486572265625,-0.026641845703125,0.00594329833984375,0.023040771484375,-0.02947998046875,0.0172576904296875,0.02032470703125,-0.02081298828125,0.042724609375,-0.043853759765625,0.0005879402160644531,-0.015716552734375,0.007659912109375,0.016754150390625,0.00530242919921875,-0.001186370849609375,0.01323699951171875,0.01534271240234375,-0.05902099609375,0.017333984375,0.0128631591796875,-0.02801513671875,0.07489013671875,-0.02392578125,-0.01299285888671875,0.0156097412109375,0.0279693603515625,0.01552581787109375,0.042236328125,-0.023834228515625,-0.00885009765625,0.0025920867919921875,-0.025115966796875,-0.0030422210693359375,-0.00952911376953125,-0.0263519287109375,-0.0106964111328125,0.048553466796875,-0.0151214599609375,-0.026123046875,0.02593994140625,0.03277587890625,0.03912353515625,-0.0276031494140625,-0.0167388916015625,0.0233154296875,-0.003971099853515625,0.0258941650390625,-0.008697509765625,-0.0506591796875,-0.026641845703125,-0.006137847900390625,0.0020389556884765625,-0.03875732421875,-0.029296875,0.002044677734375,-0.006130218505859375,0.0048828125,0.05645751953125,-0.021759033203125,-0.0028171539306640625,-0.01763916015625,0.031768798828125,-0.00588226318359375,-0.015106201171875,0.042083740234375,0.0126190185546875,-0.003696441650390625,0.0311431884765625,0.0231475830078125,0.0128936767578125,0.0110015869140625,-0.038116455078125,-0.035125732421875,0.023101806640625,-0.051300048828125,0.0178070068359375,-0.032623291015625,0.0223846435546875,0.0212860107421875,-0.031982421875,0.0012807846069335938,0.006671905517578125,0.01027679443359375,0.049407958984375,-0.0227508544921875,0.014434814453125,-0.01436614990234375,0.005695343017578125,-0.0013866424560546875,0.028076171875,-0.0306549072265625,0.0187530517578125,0.032012939453125,-0.00865936279296875,0.019134521484375,-0.01055908203125,0.00937652587890625,-0.0017061233520507812,0.01166534423828125,0.021484375,0.016448974609375,0.0095367431640625,0.033843994140625,0.06463623046875,-0.0135650634765625,-0.027374267578125,-0.01532745361328125,0.0283966064453125,0.0238800048828125,-0.00820159912109375,0.0038890838623046875,-0.035125732421875,-0.01947021484375,0.015411376953125,0.02081298828125,0.034454345703125,-0.0390625,0.017578125,-0.000423431396484375,-0.0007443428039550781,-0.036895751953125,-0.038482666015625,-0.00669097900390625,-0.03021240234375,0.01081085205078125,0.04461669921875,-0.0248565673828125,0.03900146484375,0.01538848876953125,-0.035125732421875,-0.011932373046875,0.0732421875,-0.0667724609375,0.003894805908203125,0.046112060546875,0.00033354759216308594,-0.0189056396484375,-0.039947509765625,0.018951416015625,-0.025360107421875,0.00373077392578125,0.039581298828125,-0.0006952285766601562,-0.025146484375,-0.01458740234375,0.012298583984375,0.016143798828125,0.033721923828125,-0.0284271240234375,0.02740478515625,-0.005741119384765625,0.024688720703125,0.0190277099609375,0.0284271240234375,-0.039093017578125,0.060882568359375,-0.005329132080078125,0.0771484375,0.037841796875,0.0506591796875,0.0228271484375,0.017333984375,0.01421356201171875,0.0205535888671875,-0.0152587890625,-0.01052093505859375,-0.007266998291015625,0.01505279541015625,0.0092315673828125,0.022125244140625,-0.0135650634765625,-0.018585205078125,-0.004070281982421875,0.04052734375,-0.00778961181640625,0.0017681121826171875,0.0236968994140625,0.060546875,-0.035430908203125,0.006038665771484375,0.0026035308837890625,0.03692626953125,-0.0408935546875,0.029144287109375,-0.00634002685546875,-0.0085296630859375,0.008056640625,0.0283050537109375,-0.01065826416015625,0.02813720703125,-0.0106658935546875,0.03424072265625,0.0238037109375,-0.01157379150390625,-0.03155517578125,-0.05072021484375,-0.034698486328125,-0.0277862548828125,-0.040374755859375,0.0194854736328125,-0.005970001220703125,-0.0261077880859375,0.041900634765625,0.0016870498657226562,-0.03875732421875,-0.044891357421875,-0.003742218017578125,0.004734039306640625,0.0452880859375,0.03173828125,-0.01067352294921875,0.02813720703125,0.0004813671112060547,0.06787109375,-0.027618408203125,-0.04766845703125,-0.07122802734375,0.034027099609375,0.020843505859375,-0.031463623046875,-0.019744873046875,-0.00872039794921875,-0.047882080078125,-0.0033969879150390625,0.004154205322265625,0.007350921630859375,-0.0034732818603515625,-0.00965118408203125,-0.0341796875,0.01503753662109375,0.0157318115234375,-0.045379638671875,0.05841064453125,0.0286712646484375,-0.030548095703125,0.025543212890625,0.020263671875,-0.02703857421875,0.00417327880859375,0.023956298828125,0.033355712890625,0.030975341796875,-0.037811279296875,0.0203857421875,-0.0301361083984375,0.0260009765625,-0.0142822265625,-0.006717681884765625,-0.043426513671875,0.046142578125,0.045562744140625,-0.049591064453125,0.04180908203125,-0.023834228515625,-0.0033779144287109375,-0.0401611328125,0.0017690658569335938,0.0013332366943359375,0.00917816162109375,0.030242919921875,0.001495361328125,-0.014801025390625,-0.04315185546875,0.01021575927734375,0.044891357421875,-0.0628662109375,-0.01788330078125,0.019134521484375,-0.0028209686279296875,-0.004978179931640625,0.0007915496826171875,-0.01485443115234375,-0.057952880859375,0.0302734375,-0.0226593017578125,0.0170440673828125,0.02783203125,-0.01238250732421875,0.022613525390625,0.03204345703125,-0.0433349609375,0.024200439453125,0.041473388671875,0.034881591796875,0.0273895263671875,-0.005680084228515625,0.008209228515625,-0.026611328125,0.0010223388671875,-0.01495361328125,0.01605224609375,0.000244140625,0.048736572265625,-0.0161590576171875,0.04791259765625,0.0245208740234375,-0.00211334228515625,0.049957275390625,-0.0066070556640625,0.01910400390625,0.039154052734375,-0.001865386962890625,0.0231170654296875,-0.05023193359375,0.025115966796875,-0.02423095703125,0.038482666015625,0.03955078125,0.0175628662109375,0.024444580078125,-0.027801513671875,-0.0180511474609375,-0.06170654296875,0.00756072998046875,-0.00997161865234375,-0.032684326171875,-0.03790283203125,-0.0013685226440429688,-0.048919677734375,-0.0552978515625,0.057342529296875,0.012664794921875,-0.002666473388671875,-0.0004448890686035156,0.040618896484375,-0.0230255126953125,0.046966552734375,0.00580596923828125,0.01552581787109375,-0.0015153884887695312,-0.005855560302734375,0.0869140625,0.036041259765625,-0.03192138671875,-0.051788330078125,-0.02716064453125,-0.043304443359375,0.0211181640625,0.031341552734375,-0.0254364013671875,-0.006229400634765625,0.0474853515625,-0.01220703125,0.00510406494140625,-0.01532745361328125,0.00010162591934204102,-0.00673675537109375,0.007904052734375,0.024322509765625,-0.053955078125,-0.00556182861328125,-0.038116455078125,0.07110595703125,0.06488037109375,-0.004291534423828125,-0.020721435546875,0.0242919921875,-0.041839599609375,-0.034942626953125,0.0303497314453125,0.0287933349609375,-0.01424407958984375,0.016754150390625,-0.0679931640625,0.029541015625,0.0499267578125,-0.02813720703125,-0.0287628173828125,-0.0138397216796875,-0.005916595458984375,-0.0092926025390625,0.00827789306640625,-0.0246124267578125,-0.023040771484375,0.020233154296875,-0.057281494140625,0.061981201171875,-0.00618743896484375,-0.004474639892578125,0.0025005340576171875,0.01378631591796875,0.02362060546875,0.01515960693359375,-0.021148681640625,0.014434814453125,-0.009124755859375,0.027496337890625,-0.00669097900390625,0.004730224609375,0.07220458984375,-0.0157928466796875,-0.0565185546875,0.040191650390625,-0.0069732666015625,-0.0004181861877441406,-0.0053558349609375,0.0229034423828125,-0.0723876953125,0.058807373046875,0.00864410400390625,0.000021755695343017578,0.0310516357421875,-0.0008730888366699219,-0.0081024169921875,0.0086517333984375,0.043670654296875,-0.0330810546875,-0.005741119384765625,-0.03955078125,-0.03558349609375,-0.0120697021484375,-0.015716552734375,-0.005413055419921875,0.0212860107421875,-0.0204620361328125,-0.01131439208984375,-0.01039886474609375,-0.018310546875,-0.006378173828125,-0.007518768310546875,-0.035308837890625,0.0041961669921875,-0.03173828125,0.005565643310546875,0.038726806640625,0.014434814453125,-0.032318115234375,0.000732421875,0.0140838623046875,-0.06927490234375,-0.0535888671875,0.00693511962890625,-0.0037689208984375,0.0247955322265625,-0.037445068359375,-0.01617431640625,-0.05670166015625,-0.0015277862548828125,0.0258941650390625,-0.003314971923828125,0.0038433074951171875,-0.019073486328125,-0.045928955078125,0.04669189453125,0.0110321044921875,-0.031585693359375,-0.01123046875,0.0192108154296875,-0.016387939453125,0.0236358642578125,0.01064300537109375,0.037078857421875,-0.057220458984375,-0.03546142578125,-0.003139495849609375,-0.01348876953125,0.0178375244140625,-0.046539306640625,-0.03533935546875,-0.0274658203125,0.049163818359375,-0.004909515380859375,-0.0293426513671875,0.0037593841552734375,-0.033447265625,-0.01285552978515625,-0.01105499267578125,-0.0221405029296875,-0.043243408203125,-0.0191192626953125,0.0248870849609375,0.0552978515625,-0.0020465850830078125,-0.0223236083984375,-0.0159912109375,0.03582763671875,0.01141357421875,-0.008209228515625,-0.0309906005859375,0.00855255126953125,-0.045867919921875,-0.0202178955078125,0.02313232421875,-0.0094146728515625,0.0219573974609375,0.01131439208984375,-0.050567626953125,0.0199127197265625,-0.044921875,-0.022613525390625,-0.005229949951171875,-0.012969970703125,0.0137939453125,-0.0017070770263671875,0.0135650634765625,0.00014448165893554688,0.049560546875,0.035614013671875,0.041778564453125,0.0064544677734375,-0.044097900390625,-0.01538848876953125,-0.037445068359375,0.018524169921875,-0.011444091796875,-0.048492431640625,-0.04742431640625,-0.040618896484375,-0.0038928985595703125,0.0013561248779296875,0.027984619140625,0.02630615234375,0.00389862060546875,-0.01158905029296875,-0.046234130859375,0.030303955078125,0.04736328125,-0.052734375,0.0131072998046875,-0.00188446044921875,-0.002300262451171875,-0.00044345855712890625,-0.0655517578125,-0.0709228515625,-0.051055908203125,-0.020355224609375,0.0472412109375,-0.0017251968383789062,0.00797271728515625,-0.020416259765625,-0.01264190673828125,-0.03558349609375,0.0682373046875,-0.02685546875,0.0212554931640625,0.05023193359375,0.0234375,0.002796173095703125,0.02008056640625,-0.0010166168212890625,-0.007358551025390625,-0.038482666015625,0.07537841796875,-0.0208740234375,-0.055267333984375,0.01554107666015625,0.032928466796875,-0.05023193359375,-0.027679443359375,0.0012273788452148438,0.01387786865234375,0.024169921875,-0.07427978515625,-0.0112152099609375,-0.03411865234375,-0.01373291015625,0.022705078125,0.040130615234375,-0.01038360595703125,0.036102294921875,0.005367279052734375,0.057586669921875,-0.01214599609375,0.032440185546875,0.03265380859375,-0.006618499755859375,0.0103607177734375,-0.02008056640625,-0.0239105224609375,-0.0019025802612304688,0.0289764404296875,0.0283355712890625,-0.004749298095703125,0.011566162109375,0.00446319580078125,0.004909515380859375,0.01294708251953125,0.011444091796875,0.01309967041015625,0.04541015625,-0.0396728515625,-0.0163421630859375,0.00658416748046875,0.007778167724609375,0.0280303955078125,0.0294342041015625,-0.007579803466796875,0.0005183219909667969,0.07659912109375,0.00774383544921875,-0.005054473876953125,-0.0555419921875,-0.03948974609375,-0.059417724609375,-0.053985595703125,-0.031890869140625,0.00988006591796875,0.018463134765625,0.0435791015625,0.016845703125,-0.0289764404296875,0.00798797607421875,-0.022552490234375,-0.06536865234375,-0.0176239013671875,-0.01551055908203125,0.012420654296875,-0.028350830078125,-0.0865478515625,-0.01415252685546875,-0.012237548828125,-0.01708984375,0.0423583984375,0.015869140625,0.0310516357421875,-0.025115966796875,0.055084228515625,-0.0094451904296875,0.0252532958984375,0.0010356903076171875,-0.021514892578125,0.0088653564453125,-0.0054168701171875,0.01099395751953125,-0.01739501953125,-0.0027828216552734375,-0.044281005859375,0.01715087890625,-0.0257568359375,-0.04510498046875,-0.031524658203125,0.0223236083984375,-0.01373291015625,0.00022494792938232422,-0.04534912109375,-0.05059814453125,-0.0136566162109375,-0.038848876953125,0.0229644775390625,-0.01507568359375,-0.01396942138671875,0.03424072265625,-0.033111572265625,-0.024658203125,0.0509033203125,-0.0007376670837402344,0.00928497314453125,0.01314544677734375,0.035430908203125,0.01485443115234375,-0.00563812255859375,0.0169525146484375,0.0017871856689453125,0.0283050537109375,-0.036895751953125,0.0182647705078125,0.018463134765625,0.004993438720703125,0.056915283203125,-0.055938720703125,-0.0157470703125,-0.04144287109375,-0.01532745361328125,-0.00039958953857421875,0.05987548828125,0.007755279541015625,0.0093536376953125,0.08294677734375,-0.03411865234375,-0.038665771484375,-0.048797607421875,-0.06103515625,-0.0130615234375,0.00606536865234375,0.0001609325408935547,-0.007511138916015625,0.006656646728515625,-0.0458984375,0.01003265380859375,-0.0254058837890625,-0.01505279541015625,0.0202789306640625,0.0177764892578125,0.004184722900390625,0.0260009765625,-0.0266265869140625,-0.01111602783203125,0.007720947265625,0.07781982421875,-0.04315185546875,-0.0679931640625,0.02313232421875,0.008270263671875,0.0452880859375,-0.006397247314453125,-0.007610321044921875,0.023345947265625,-0.0030574798583984375,-0.0218353271484375,0.05908203125,0.035919189453125,-0.026214599609375,0.02276611328125,0.0028934478759765625,0.00402069091796875,-0.011810302734375,0.047576904296875,-0.0163421630859375,-0.0423583984375,-0.06109619140625,0.038970947265625,0.0118408203125,0.019989013671875,0.00856781005859375,0.002216339111328125,0.0300750732421875,-0.030181884765625,-0.048370361328125,0.0224151611328125,0.0222930908203125,0.0193023681640625,0.0311126708984375,-0.022430419921875,0.00982666015625,0.0438232421875,-0.0133056640625,0.0164031982421875,0.00281524658203125,-0.004177093505859375,-0.03265380859375,-0.051910400390625,0.015716552734375,-0.00609588623046875,-0.0176239013671875,-0.006992340087890625,-0.038360595703125,-0.0321044921875,-0.005733489990234375,0.046661376953125,-0.030853271484375,0.02532958984375,-0.0374755859375,0.011932373046875,-0.0245361328125,-0.012725830078125,0.01213836669921875,0.044525146484375,0.0160675048828125,0.0179595947265625,0.0272674560546875,0.017059326171875,-0.00853729248046875,0.0214996337890625,-0.0131988525390625,0.0030364990234375,-0.0333251953125,0.0001442432403564453,0.01702880859375,-0.0246124267578125,-0.048095703125,0.0142364501953125,-0.050628662109375,0.00560760498046875,0.005733489990234375,-0.0465087890625,-0.002227783203125,-0.0198516845703125,-0.0210113525390625,-0.01222991943359375,0.0638427734375,-0.04998779296875,-0.0435791015625,0.0053558349609375,-0.0204010009765625,-0.00978851318359375,-0.004283905029296875,0.01018524169921875,0.032562255859375,-0.0024051666259765625,0.03973388671875,0.0162200927734375,-0.0167236328125,0.015838623046875,-0.06378173828125,-0.0030002593994140625,-0.0024394989013671875,-0.0322265625,-0.0028553009033203125,0.006927490234375,-0.040191650390625,-0.0125732421875,-0.040618896484375,-0.0016908645629882812,0.0196075439453125,0.016693115234375,-0.004207611083984375,-0.06402587890625,-0.013336181640625,0.042266845703125,-0.0043182373046875,-0.023834228515625,0.050537109375,0.050567626953125,-0.011627197265625,-0.00685882568359375,-0.035736083984375,-0.0211181640625,0.01146697998046875,-0.0145721435546875,0.0665283203125,-0.0161590576171875,-0.00420379638671875,0.0195465087890625,-0.055755615234375,0.0080413818359375,-0.0093231201171875,-0.0283660888671875,-0.00969696044921875,0.0043182373046875,0.037811279296875,-0.006740570068359375,0.01067352294921875,-0.033050537109375,0.005641937255859375,0.0239715576171875,0.068359375,-0.0222625732421875,0.04840087890625,0.0300750732421875,0.0208892822265625,0.007587432861328125,-0.012939453125,0.0019369125366210938,-0.03924560546875,-0.01226806640625,0.01259613037109375,0.00989532470703125,0.006969451904296875,-0.028961181640625,0.0330810546875,0.02508544921875,0.0209197998046875,0.0293121337890625,-0.0736083984375,-0.03326416015625,-0.028076171875,-0.04034423828125,-0.0214080810546875,0.019927978515625,0.0076446533203125,-0.0247955322265625,-0.005802154541015625,-0.07342529296875,0.231201171875,0.053436279296875,0.0195465087890625,0.019805908203125,0.01537322998046875,0.0188446044921875,0.0540771484375,0.01003265380859375,0.01421356201171875,0.0127410888671875,0.046112060546875,0.0265655517578125,0.0207672119140625,0.059295654296875,0.065185546875,0.07366943359375,-0.06048583984375,-0.00853729248046875,0.0234375,-0.00763702392578125,-0.035858154296875,0.021728515625,0.0195159912109375,0.04107666015625,0.00606536865234375,-0.006572723388671875,0.062164306640625,-0.0384521484375,-0.0009369850158691406,-0.0016717910766601562,0.05560302734375,-0.0572509765625,-0.005794525146484375,-0.031768798828125,-0.01320648193359375,0.060150146484375,-0.0068206787109375,-0.004848480224609375,-0.00414276123046875,0.041412353515625,0.0186614990234375,0.01593017578125,0.01279449462890625,-0.0232696533203125,0.01739501953125,0.00852203369140625,-0.0421142578125,0.039703369140625,-0.00771331787109375,-0.04888916015625,0.0584716796875,-0.051239013671875,0.024139404296875,0.0090179443359375,-0.0276031494140625,-0.0014009475708007812,0.0019369125366210938,-0.042938232421875,-0.014068603515625,0.031463623046875,0.0338134765625,-0.02105712890625,-0.0482177734375,-0.01154327392578125,-0.0262908935546875,-0.005878448486328125,0.01404571533203125,-0.0290374755859375,-0.01540374755859375,-0.028289794921875,0.003131866455078125,-0.0184173583984375,0.00507354736328125,-0.01605224609375,-0.031402587890625,0.01044464111328125,-0.0178070068359375,0.013763427734375,0.02587890625,0.0012235641479492188,-0.0011320114135742188,-0.03729248046875,0.01678466796875,0.00611114501953125,0.03900146484375,0.01306915283203125,-0.023040771484375,-0.0589599609375,-0.0186004638671875,0.0625,0.044891357421875,0.0240631103515625,-0.012725830078125,-0.0300445556640625,-0.001216888427734375]"
+          },
+          "query": "[-0.0098724365234375,-0.033355712890625,0.0061492919921875,0.0236663818359375,0.023895263671875,-0.0207672119140625,0.000827789306640625,0.019805908203125,0.00878143310546875,0.022491455078125,0.09521484375,-0.01549530029296875,0.0307159423828125,-0.03265380859375,-0.0550537109375,0.02276611328125,0.0097503662109375,-0.032958984375,-0.00763702392578125,-0.03369140625,0.002979278564453125,-0.006931304931640625,-0.06402587890625,0.008697509765625,-0.0015783309936523438,0.040802001953125,-0.02685546875,0.020355224609375,0.0283050537109375,0.00518798828125,-0.052276611328125,-0.038726806640625,-0.00605010986328125,-0.018280029296875,-0.00013768672943115234,0.031280517578125,0.004436492919921875,-0.06640625,-0.0274505615234375,-0.07763671875,0.0033893585205078125,-0.00237274169921875,0.06640625,0.032623291015625,-0.04351806640625,-0.018951416015625,-0.050140380859375,-0.03204345703125,0.03509521484375,-0.049163818359375,0.0296783447265625,-0.00730133056640625,0.0355224609375,0.0033893585205078125,0.00754547119140625,-0.0187530517578125,0.0001825094223022461,-0.0209808349609375,-0.01358795166015625,0.0177154541015625,-0.0258941650390625,-0.01763916015625,-0.0171661376953125,-0.03546142578125,0.08270263671875,0.033782958984375,0.0164947509765625,0.005985260009765625,0.047607421875,-0.0253143310546875,0.0142059326171875,0.041168212890625,-0.01538848876953125,0.0297088623046875,-0.04132080078125,0.01517486572265625,-0.026641845703125,0.00594329833984375,0.023040771484375,-0.02947998046875,0.0172576904296875,0.02032470703125,-0.02081298828125,0.042724609375,-0.043853759765625,0.0005879402160644531,-0.015716552734375,0.007659912109375,0.016754150390625,0.00530242919921875,-0.001186370849609375,0.01323699951171875,0.01534271240234375,-0.05902099609375,0.017333984375,0.0128631591796875,-0.02801513671875,0.07489013671875,-0.02392578125,-0.01299285888671875,0.0156097412109375,0.0279693603515625,0.01552581787109375,0.042236328125,-0.023834228515625,-0.00885009765625,0.0025920867919921875,-0.025115966796875,-0.0030422210693359375,-0.00952911376953125,-0.0263519287109375,-0.0106964111328125,0.048553466796875,-0.0151214599609375,-0.026123046875,0.02593994140625,0.03277587890625,0.03912353515625,-0.0276031494140625,-0.0167388916015625,0.0233154296875,-0.003971099853515625,0.0258941650390625,-0.008697509765625,-0.0506591796875,-0.026641845703125,-0.006137847900390625,0.0020389556884765625,-0.03875732421875,-0.029296875,0.002044677734375,-0.006130218505859375,0.0048828125,0.05645751953125,-0.021759033203125,-0.0028171539306640625,-0.01763916015625,0.031768798828125,-0.00588226318359375,-0.015106201171875,0.042083740234375,0.0126190185546875,-0.003696441650390625,0.0311431884765625,0.0231475830078125,0.0128936767578125,0.0110015869140625,-0.038116455078125,-0.035125732421875,0.023101806640625,-0.051300048828125,0.0178070068359375,-0.032623291015625,0.0223846435546875,0.0212860107421875,-0.031982421875,0.0012807846069335938,0.006671905517578125,0.01027679443359375,0.049407958984375,-0.0227508544921875,0.014434814453125,-0.01436614990234375,0.005695343017578125,-0.0013866424560546875,0.028076171875,-0.0306549072265625,0.0187530517578125,0.032012939453125,-0.00865936279296875,0.019134521484375,-0.01055908203125,0.00937652587890625,-0.0017061233520507812,0.01166534423828125,0.021484375,0.016448974609375,0.0095367431640625,0.033843994140625,0.06463623046875,-0.0135650634765625,-0.027374267578125,-0.01532745361328125,0.0283966064453125,0.0238800048828125,-0.00820159912109375,0.0038890838623046875,-0.035125732421875,-0.01947021484375,0.015411376953125,0.02081298828125,0.034454345703125,-0.0390625,0.017578125,-0.000423431396484375,-0.0007443428039550781,-0.036895751953125,-0.038482666015625,-0.00669097900390625,-0.03021240234375,0.01081085205078125,0.04461669921875,-0.0248565673828125,0.03900146484375,0.01538848876953125,-0.035125732421875,-0.011932373046875,0.0732421875,-0.0667724609375,0.003894805908203125,0.046112060546875,0.00033354759216308594,-0.0189056396484375,-0.039947509765625,0.018951416015625,-0.025360107421875,0.00373077392578125,0.039581298828125,-0.0006952285766601562,-0.025146484375,-0.01458740234375,0.012298583984375,0.016143798828125,0.033721923828125,-0.0284271240234375,0.02740478515625,-0.005741119384765625,0.024688720703125,0.0190277099609375,0.0284271240234375,-0.039093017578125,0.060882568359375,-0.005329132080078125,0.0771484375,0.037841796875,0.0506591796875,0.0228271484375,0.017333984375,0.01421356201171875,0.0205535888671875,-0.0152587890625,-0.01052093505859375,-0.007266998291015625,0.01505279541015625,0.0092315673828125,0.022125244140625,-0.0135650634765625,-0.018585205078125,-0.004070281982421875,0.04052734375,-0.00778961181640625,0.0017681121826171875,0.0236968994140625,0.060546875,-0.035430908203125,0.006038665771484375,0.0026035308837890625,0.03692626953125,-0.0408935546875,0.029144287109375,-0.00634002685546875,-0.0085296630859375,0.008056640625,0.0283050537109375,-0.01065826416015625,0.02813720703125,-0.0106658935546875,0.03424072265625,0.0238037109375,-0.01157379150390625,-0.03155517578125,-0.05072021484375,-0.034698486328125,-0.0277862548828125,-0.040374755859375,0.0194854736328125,-0.005970001220703125,-0.0261077880859375,0.041900634765625,0.0016870498657226562,-0.03875732421875,-0.044891357421875,-0.003742218017578125,0.004734039306640625,0.0452880859375,0.03173828125,-0.01067352294921875,0.02813720703125,0.0004813671112060547,0.06787109375,-0.027618408203125,-0.04766845703125,-0.07122802734375,0.034027099609375,0.020843505859375,-0.031463623046875,-0.019744873046875,-0.00872039794921875,-0.047882080078125,-0.0033969879150390625,0.004154205322265625,0.007350921630859375,-0.0034732818603515625,-0.00965118408203125,-0.0341796875,0.01503753662109375,0.0157318115234375,-0.045379638671875,0.05841064453125,0.0286712646484375,-0.030548095703125,0.025543212890625,0.020263671875,-0.02703857421875,0.00417327880859375,0.023956298828125,0.033355712890625,0.030975341796875,-0.037811279296875,0.0203857421875,-0.0301361083984375,0.0260009765625,-0.0142822265625,-0.006717681884765625,-0.043426513671875,0.046142578125,0.045562744140625,-0.049591064453125,0.04180908203125,-0.023834228515625,-0.0033779144287109375,-0.0401611328125,0.0017690658569335938,0.0013332366943359375,0.00917816162109375,0.030242919921875,0.001495361328125,-0.014801025390625,-0.04315185546875,0.01021575927734375,0.044891357421875,-0.0628662109375,-0.01788330078125,0.019134521484375,-0.0028209686279296875,-0.004978179931640625,0.0007915496826171875,-0.01485443115234375,-0.057952880859375,0.0302734375,-0.0226593017578125,0.0170440673828125,0.02783203125,-0.01238250732421875,0.022613525390625,0.03204345703125,-0.0433349609375,0.024200439453125,0.041473388671875,0.034881591796875,0.0273895263671875,-0.005680084228515625,0.008209228515625,-0.026611328125,0.0010223388671875,-0.01495361328125,0.01605224609375,0.000244140625,0.048736572265625,-0.0161590576171875,0.04791259765625,0.0245208740234375,-0.00211334228515625,0.049957275390625,-0.0066070556640625,0.01910400390625,0.039154052734375,-0.001865386962890625,0.0231170654296875,-0.05023193359375,0.025115966796875,-0.02423095703125,0.038482666015625,0.03955078125,0.0175628662109375,0.024444580078125,-0.027801513671875,-0.0180511474609375,-0.06170654296875,0.00756072998046875,-0.00997161865234375,-0.032684326171875,-0.03790283203125,-0.0013685226440429688,-0.048919677734375,-0.0552978515625,0.057342529296875,0.012664794921875,-0.002666473388671875,-0.0004448890686035156,0.040618896484375,-0.0230255126953125,0.046966552734375,0.00580596923828125,0.01552581787109375,-0.0015153884887695312,-0.005855560302734375,0.0869140625,0.036041259765625,-0.03192138671875,-0.051788330078125,-0.02716064453125,-0.043304443359375,0.0211181640625,0.031341552734375,-0.0254364013671875,-0.006229400634765625,0.0474853515625,-0.01220703125,0.00510406494140625,-0.01532745361328125,0.00010162591934204102,-0.00673675537109375,0.007904052734375,0.024322509765625,-0.053955078125,-0.00556182861328125,-0.038116455078125,0.07110595703125,0.06488037109375,-0.004291534423828125,-0.020721435546875,0.0242919921875,-0.041839599609375,-0.034942626953125,0.0303497314453125,0.0287933349609375,-0.01424407958984375,0.016754150390625,-0.0679931640625,0.029541015625,0.0499267578125,-0.02813720703125,-0.0287628173828125,-0.0138397216796875,-0.005916595458984375,-0.0092926025390625,0.00827789306640625,-0.0246124267578125,-0.023040771484375,0.020233154296875,-0.057281494140625,0.061981201171875,-0.00618743896484375,-0.004474639892578125,0.0025005340576171875,0.01378631591796875,0.02362060546875,0.01515960693359375,-0.021148681640625,0.014434814453125,-0.009124755859375,0.027496337890625,-0.00669097900390625,0.004730224609375,0.07220458984375,-0.0157928466796875,-0.0565185546875,0.040191650390625,-0.0069732666015625,-0.0004181861877441406,-0.0053558349609375,0.0229034423828125,-0.0723876953125,0.058807373046875,0.00864410400390625,0.000021755695343017578,0.0310516357421875,-0.0008730888366699219,-0.0081024169921875,0.0086517333984375,0.043670654296875,-0.0330810546875,-0.005741119384765625,-0.03955078125,-0.03558349609375,-0.0120697021484375,-0.015716552734375,-0.005413055419921875,0.0212860107421875,-0.0204620361328125,-0.01131439208984375,-0.01039886474609375,-0.018310546875,-0.006378173828125,-0.007518768310546875,-0.035308837890625,0.0041961669921875,-0.03173828125,0.005565643310546875,0.038726806640625,0.014434814453125,-0.032318115234375,0.000732421875,0.0140838623046875,-0.06927490234375,-0.0535888671875,0.00693511962890625,-0.0037689208984375,0.0247955322265625,-0.037445068359375,-0.01617431640625,-0.05670166015625,-0.0015277862548828125,0.0258941650390625,-0.003314971923828125,0.0038433074951171875,-0.019073486328125,-0.045928955078125,0.04669189453125,0.0110321044921875,-0.031585693359375,-0.01123046875,0.0192108154296875,-0.016387939453125,0.0236358642578125,0.01064300537109375,0.037078857421875,-0.057220458984375,-0.03546142578125,-0.003139495849609375,-0.01348876953125,0.0178375244140625,-0.046539306640625,-0.03533935546875,-0.0274658203125,0.049163818359375,-0.004909515380859375,-0.0293426513671875,0.0037593841552734375,-0.033447265625,-0.01285552978515625,-0.01105499267578125,-0.0221405029296875,-0.043243408203125,-0.0191192626953125,0.0248870849609375,0.0552978515625,-0.0020465850830078125,-0.0223236083984375,-0.0159912109375,0.03582763671875,0.01141357421875,-0.008209228515625,-0.0309906005859375,0.00855255126953125,-0.045867919921875,-0.0202178955078125,0.02313232421875,-0.0094146728515625,0.0219573974609375,0.01131439208984375,-0.050567626953125,0.0199127197265625,-0.044921875,-0.022613525390625,-0.005229949951171875,-0.012969970703125,0.0137939453125,-0.0017070770263671875,0.0135650634765625,0.00014448165893554688,0.049560546875,0.035614013671875,0.041778564453125,0.0064544677734375,-0.044097900390625,-0.01538848876953125,-0.037445068359375,0.018524169921875,-0.011444091796875,-0.048492431640625,-0.04742431640625,-0.040618896484375,-0.0038928985595703125,0.0013561248779296875,0.027984619140625,0.02630615234375,0.00389862060546875,-0.01158905029296875,-0.046234130859375,0.030303955078125,0.04736328125,-0.052734375,0.0131072998046875,-0.00188446044921875,-0.002300262451171875,-0.00044345855712890625,-0.0655517578125,-0.0709228515625,-0.051055908203125,-0.020355224609375,0.0472412109375,-0.0017251968383789062,0.00797271728515625,-0.020416259765625,-0.01264190673828125,-0.03558349609375,0.0682373046875,-0.02685546875,0.0212554931640625,0.05023193359375,0.0234375,0.002796173095703125,0.02008056640625,-0.0010166168212890625,-0.007358551025390625,-0.038482666015625,0.07537841796875,-0.0208740234375,-0.055267333984375,0.01554107666015625,0.032928466796875,-0.05023193359375,-0.027679443359375,0.0012273788452148438,0.01387786865234375,0.024169921875,-0.07427978515625,-0.0112152099609375,-0.03411865234375,-0.01373291015625,0.022705078125,0.040130615234375,-0.01038360595703125,0.036102294921875,0.005367279052734375,0.057586669921875,-0.01214599609375,0.032440185546875,0.03265380859375,-0.006618499755859375,0.0103607177734375,-0.02008056640625,-0.0239105224609375,-0.0019025802612304688,0.0289764404296875,0.0283355712890625,-0.004749298095703125,0.011566162109375,0.00446319580078125,0.004909515380859375,0.01294708251953125,0.011444091796875,0.01309967041015625,0.04541015625,-0.0396728515625,-0.0163421630859375,0.00658416748046875,0.007778167724609375,0.0280303955078125,0.0294342041015625,-0.007579803466796875,0.0005183219909667969,0.07659912109375,0.00774383544921875,-0.005054473876953125,-0.0555419921875,-0.03948974609375,-0.059417724609375,-0.053985595703125,-0.031890869140625,0.00988006591796875,0.018463134765625,0.0435791015625,0.016845703125,-0.0289764404296875,0.00798797607421875,-0.022552490234375,-0.06536865234375,-0.0176239013671875,-0.01551055908203125,0.012420654296875,-0.028350830078125,-0.0865478515625,-0.01415252685546875,-0.012237548828125,-0.01708984375,0.0423583984375,0.015869140625,0.0310516357421875,-0.025115966796875,0.055084228515625,-0.0094451904296875,0.0252532958984375,0.0010356903076171875,-0.021514892578125,0.0088653564453125,-0.0054168701171875,0.01099395751953125,-0.01739501953125,-0.0027828216552734375,-0.044281005859375,0.01715087890625,-0.0257568359375,-0.04510498046875,-0.031524658203125,0.0223236083984375,-0.01373291015625,0.00022494792938232422,-0.04534912109375,-0.05059814453125,-0.0136566162109375,-0.038848876953125,0.0229644775390625,-0.01507568359375,-0.01396942138671875,0.03424072265625,-0.033111572265625,-0.024658203125,0.0509033203125,-0.0007376670837402344,0.00928497314453125,0.01314544677734375,0.035430908203125,0.01485443115234375,-0.00563812255859375,0.0169525146484375,0.0017871856689453125,0.0283050537109375,-0.036895751953125,0.0182647705078125,0.018463134765625,0.004993438720703125,0.056915283203125,-0.055938720703125,-0.0157470703125,-0.04144287109375,-0.01532745361328125,-0.00039958953857421875,0.05987548828125,0.007755279541015625,0.0093536376953125,0.08294677734375,-0.03411865234375,-0.038665771484375,-0.048797607421875,-0.06103515625,-0.0130615234375,0.00606536865234375,0.0001609325408935547,-0.007511138916015625,0.006656646728515625,-0.0458984375,0.01003265380859375,-0.0254058837890625,-0.01505279541015625,0.0202789306640625,0.0177764892578125,0.004184722900390625,0.0260009765625,-0.0266265869140625,-0.01111602783203125,0.007720947265625,0.07781982421875,-0.04315185546875,-0.0679931640625,0.02313232421875,0.008270263671875,0.0452880859375,-0.006397247314453125,-0.007610321044921875,0.023345947265625,-0.0030574798583984375,-0.0218353271484375,0.05908203125,0.035919189453125,-0.026214599609375,0.02276611328125,0.0028934478759765625,0.00402069091796875,-0.011810302734375,0.047576904296875,-0.0163421630859375,-0.0423583984375,-0.06109619140625,0.038970947265625,0.0118408203125,0.019989013671875,0.00856781005859375,0.002216339111328125,0.0300750732421875,-0.030181884765625,-0.048370361328125,0.0224151611328125,0.0222930908203125,0.0193023681640625,0.0311126708984375,-0.022430419921875,0.00982666015625,0.0438232421875,-0.0133056640625,0.0164031982421875,0.00281524658203125,-0.004177093505859375,-0.03265380859375,-0.051910400390625,0.015716552734375,-0.00609588623046875,-0.0176239013671875,-0.006992340087890625,-0.038360595703125,-0.0321044921875,-0.005733489990234375,0.046661376953125,-0.030853271484375,0.02532958984375,-0.0374755859375,0.011932373046875,-0.0245361328125,-0.012725830078125,0.01213836669921875,0.044525146484375,0.0160675048828125,0.0179595947265625,0.0272674560546875,0.017059326171875,-0.00853729248046875,0.0214996337890625,-0.0131988525390625,0.0030364990234375,-0.0333251953125,0.0001442432403564453,0.01702880859375,-0.0246124267578125,-0.048095703125,0.0142364501953125,-0.050628662109375,0.00560760498046875,0.005733489990234375,-0.0465087890625,-0.002227783203125,-0.0198516845703125,-0.0210113525390625,-0.01222991943359375,0.0638427734375,-0.04998779296875,-0.0435791015625,0.0053558349609375,-0.0204010009765625,-0.00978851318359375,-0.004283905029296875,0.01018524169921875,0.032562255859375,-0.0024051666259765625,0.03973388671875,0.0162200927734375,-0.0167236328125,0.015838623046875,-0.06378173828125,-0.0030002593994140625,-0.0024394989013671875,-0.0322265625,-0.0028553009033203125,0.006927490234375,-0.040191650390625,-0.0125732421875,-0.040618896484375,-0.0016908645629882812,0.0196075439453125,0.016693115234375,-0.004207611083984375,-0.06402587890625,-0.013336181640625,0.042266845703125,-0.0043182373046875,-0.023834228515625,0.050537109375,0.050567626953125,-0.011627197265625,-0.00685882568359375,-0.035736083984375,-0.0211181640625,0.01146697998046875,-0.0145721435546875,0.0665283203125,-0.0161590576171875,-0.00420379638671875,0.0195465087890625,-0.055755615234375,0.0080413818359375,-0.0093231201171875,-0.0283660888671875,-0.00969696044921875,0.0043182373046875,0.037811279296875,-0.006740570068359375,0.01067352294921875,-0.033050537109375,0.005641937255859375,0.0239715576171875,0.068359375,-0.0222625732421875,0.04840087890625,0.0300750732421875,0.0208892822265625,0.007587432861328125,-0.012939453125,0.0019369125366210938,-0.03924560546875,-0.01226806640625,0.01259613037109375,0.00989532470703125,0.006969451904296875,-0.028961181640625,0.0330810546875,0.02508544921875,0.0209197998046875,0.0293121337890625,-0.0736083984375,-0.03326416015625,-0.028076171875,-0.04034423828125,-0.0214080810546875,0.019927978515625,0.0076446533203125,-0.0247955322265625,-0.005802154541015625,-0.07342529296875,0.231201171875,0.053436279296875,0.0195465087890625,0.019805908203125,0.01537322998046875,0.0188446044921875,0.0540771484375,0.01003265380859375,0.01421356201171875,0.0127410888671875,0.046112060546875,0.0265655517578125,0.0207672119140625,0.059295654296875,0.065185546875,0.07366943359375,-0.06048583984375,-0.00853729248046875,0.0234375,-0.00763702392578125,-0.035858154296875,0.021728515625,0.0195159912109375,0.04107666015625,0.00606536865234375,-0.006572723388671875,0.062164306640625,-0.0384521484375,-0.0009369850158691406,-0.0016717910766601562,0.05560302734375,-0.0572509765625,-0.005794525146484375,-0.031768798828125,-0.01320648193359375,0.060150146484375,-0.0068206787109375,-0.004848480224609375,-0.00414276123046875,0.041412353515625,0.0186614990234375,0.01593017578125,0.01279449462890625,-0.0232696533203125,0.01739501953125,0.00852203369140625,-0.0421142578125,0.039703369140625,-0.00771331787109375,-0.04888916015625,0.0584716796875,-0.051239013671875,0.024139404296875,0.0090179443359375,-0.0276031494140625,-0.0014009475708007812,0.0019369125366210938,-0.042938232421875,-0.014068603515625,0.031463623046875,0.0338134765625,-0.02105712890625,-0.0482177734375,-0.01154327392578125,-0.0262908935546875,-0.005878448486328125,0.01404571533203125,-0.0290374755859375,-0.01540374755859375,-0.028289794921875,0.003131866455078125,-0.0184173583984375,0.00507354736328125,-0.01605224609375,-0.031402587890625,0.01044464111328125,-0.0178070068359375,0.013763427734375,0.02587890625,0.0012235641479492188,-0.0011320114135742188,-0.03729248046875,0.01678466796875,0.00611114501953125,0.03900146484375,0.01306915283203125,-0.023040771484375,-0.0589599609375,-0.0186004638671875,0.0625,0.044891357421875,0.0240631103515625,-0.012725830078125,-0.0300445556640625,-0.001216888427734375]",
+          "label": "Embedding Vector",
+          "hide": "hideVariable",
+          "skipUrlSync": false
+        }
+      }
+    ],
+    "preferences": {
+      "layout": {
+        "kind": "GridLayout",
+        "spec": {
+          "items": []
+        }
+      }
+    }
+  }
+}
