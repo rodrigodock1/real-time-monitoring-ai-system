@@ -4,7 +4,7 @@ import json
 import logging
 import threading
 from kafka import KafkaProducer
-from kafka.errors import NoBrokersAvailable, KafkaError
+from kafka.errors import KafkaError
 import subprocess
 
 # ============================================================================

@@ -5,12 +5,11 @@
 # ///
 # DBTITLE 1,Configuration & Setup
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
-from pyspark.sql.functions import from_json, col, regexp_replace, pandas_udf, to_json, concat, lit, array_join, from_utc_timestamp
+from pyspark.sql.functions import from_json, col, regexp_replace, pandas_udf, from_utc_timestamp
 from pyspark.sql.types import ArrayType, DoubleType
 import pandas as pd
 from typing import Iterator
-import os, shutil
-from pyspark.ml.linalg import Vectors, VectorUDT
+import os
 
 # ============================================================================
 # DATA SOURCE CONFIGURATION
@@ -154,7 +153,6 @@ else:
         .option("startingOffsets", "latest")
         .option("maxOffsetsPerTrigger", "100")
         .option("failOnDataLoss", "false")
-        .option("startingOffsets", "latest") 
         .option("kafka.request.timeout.ms", "60000")
         .option("kafka.session.timeout.ms", "30000")
         .load()
@@ -186,9 +184,6 @@ print(f"✅ Logs stream started (checkpoint: {CHECKPOINT_LOGS})")
 # COMMAND ----------
 
 # DBTITLE 1,Continuous Metrics Streaming
-import time
-from datetime import datetime
-
 print("🔥 Starting continuous metrics streaming (while loop)...")
 print(f"   Source: {'JSON files' if USE_JSON_FILES else 'Event Hubs'}")
 print(f"   Path: {JSON_SOURCE_PATH if USE_JSON_FILES else EVENT_HUBS_NAMESPACE}")
@@ -196,8 +191,6 @@ print(f"   Target: {CATALOG}.{SCHEMA}.parsed_metrics")
 print("=" * 80)
 
 try:
-    timestamp = datetime.now().strftime("%H:%M:%S")
-    
     # Stream 2: Metrics → Lakebase
     if USE_JSON_FILES:
         # JSON files via Auto Loader (for testing)
@@ -268,4 +261,3 @@ except Exception as e:
     raise
 
 # COMMAND ----------
-
