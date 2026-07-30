@@ -1,0 +1,81 @@
+bundle:
+  name: real-time-monitoring-ai-system
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog name
+  schema:
+    default: default
+    description: Unity Catalog schema name
+  volume_catalog:
+    description: Volume catalog (dev or main for environment isolation)
+  event_hubs_namespace:
+    default: real-time-metrics
+    description: Azure Event Hubs namespace
+  event_hubs_topic:
+    default: system_data
+    description: Azure Event Hubs topic name
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: ${workspace.host}
+    variables:
+      catalog: workspace
+      volume_catalog: dev
+    
+  prod:
+    mode: production
+    workspace:
+      host: ${workspace.host}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/prod
+    variables:
+      catalog: workspace
+      volume_catalog: main
+
+resources:
+  pipelines:
+    real_time_streaming:
+      name: real-time-streaming
+      catalog: ${var.catalog}
+      target: ${var.schema}
+      continuous: true
+      development: false
+      photon: true
+      serverless: true
+      channel: CURRENT
+      libraries:
+        - notebook:
+            path: ./streaming_jobs/metrics_streaming
+
+  jobs:
+    real_time_ai_processing:
+      name: real_time_ai_processing
+      continuous:
+        pause_status: PAUSED
+        task_retry_mode: ON_FAILURE
+      max_concurrent_runs: 1
+      tasks:
+        - task_key: real_time_processing
+          notebook_task:
+            notebook_path: ./streaming_jobs/metrics_streaming
+            base_parameters:
+              event_hubs_namespace: ${var.event_hubs_namespace}
+              event_hubs_topic: ${var.event_hubs_topic}
+              lakebase_db: ${var.catalog}
+              lakebase_schema: ${var.schema}
+              volume_catalog: ${var.volume_catalog}
+            source: WORKSPACE
+          timeout_seconds: 0
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "5"
+      performance_target: PERFORMANCE_OPTIMIZED
